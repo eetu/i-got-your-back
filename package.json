@@ -1,0 +1,77 @@
+{
+  "name": "i-got-your-back",
+  "version": "0.1.0",
+  "description": "Tree-shakeable repeating & generative backgrounds — geometric tiles and WebGL generative art. Framework-agnostic core with a Svelte wrapper.",
+  "type": "module",
+  "license": "MIT",
+  "author": "eetu",
+  "sideEffects": false,
+  "packageManager": "pnpm@11.8.0",
+  "homepage": "https://eetu.github.io/i-got-your-back/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eetu/i-got-your-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eetu/i-got-your-back/issues"
+  },
+  "keywords": [
+    "background",
+    "backgrounds",
+    "pattern",
+    "patterns",
+    "generative",
+    "generative-art",
+    "webgl",
+    "canvas",
+    "svelte",
+    "geometric",
+    "animation",
+    "tree-shakeable"
+  ],
+  "files": [
+    "dist",
+    "src/svelte"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./patterns/*": {
+      "types": "./dist/patterns/*/index.d.ts",
+      "import": "./dist/patterns/*/index.js"
+    },
+    "./themes": {
+      "types": "./dist/themes/index.d.ts",
+      "import": "./dist/themes/index.js"
+    },
+    "./svelte": {
+      "types": "./src/svelte/Background.svelte.d.ts",
+      "svelte": "./src/svelte/Background.svelte",
+      "default": "./src/svelte/Background.svelte"
+    }
+  },
+  "scripts": {
+    "dev": "pnpm --filter demo dev",
+    "build": "tsc -p tsconfig.build.json",
+    "build:demo": "pnpm --filter demo build",
+    "check": "tsc -p tsconfig.build.json --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "svelte": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "prettier-plugin-svelte": "^3.3.3",
+    "svelte": "^5.19.0",
+    "typescript": "^5.7.3"
+  }
+}

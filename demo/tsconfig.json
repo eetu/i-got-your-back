@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "types": ["svelte", "vite/client"],
+    "paths": {
+      "i-got-your-back": ["../src/index.ts"],
+      "i-got-your-back/svelte": ["../src/svelte/Background.svelte"],
+      "i-got-your-back/themes": ["../src/themes/index.ts"]
+    }
+  },
+  "include": ["src", "vite.config.ts", "svelte.config.js"]
+}

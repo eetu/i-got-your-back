@@ -1,0 +1,55 @@
+/* halo-design tokens: Inter + Space Grotesk, one warm orange accent, 6px cards, auto light/dark */
+:root {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface-2: #f3f1ee;
+  --text: #1b1a19;
+  --muted: #6b6864;
+  --border: #e6e3df;
+  --accent: #e8630a;
+  --radius: 6px;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131211;
+    --surface: #1c1b19;
+    --surface-2: #232220;
+    --text: #f2f0ec;
+    --muted: #9c968d;
+    --border: #2c2a27;
+    --accent: #ff7a1a;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  height: 100vh;
+}
+
+button,
+select,
+input {
+  font-family: inherit;
+  color: inherit;
+}

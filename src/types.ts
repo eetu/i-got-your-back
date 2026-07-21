@@ -1,0 +1,54 @@
+/** A resolved color palette. All patterns theme themselves from these roles. */
+export type Palette = {
+  /** Base / background fill. */
+  bg: string;
+  /** Foreground primary (lines, dominant marks). */
+  fg: string;
+  /** Ordered accent colors; patterns cycle through as many as they need. */
+  accents: string[];
+};
+
+/** Names of the built-in themes shipped from `i-got-your-back/themes`. */
+export type ThemeName = 'ink' | 'neon' | 'pastel' | 'terminal';
+
+/** Either a built-in theme name or a raw palette object. */
+export type ThemeInput = ThemeName | Palette;
+
+/** Options every pattern understands, regardless of renderer. */
+export type BaseOptions = {
+  /** Built-in theme name or a custom palette. Default `'ink'`. */
+  theme?: ThemeInput;
+  /** Animate on a RAF loop. Default `true`. */
+  animate?: boolean;
+  /** Time multiplier for animation. Default `1`. */
+  speed?: number;
+  /** React to pointer input. Default `false`. */
+  interactive?: boolean;
+  /** How to treat `prefers-reduced-motion`. `'respect'` freezes to a static frame. Default `'respect'`. */
+  reducedMotion?: 'respect' | 'off';
+  /** Device-pixel-ratio override. Defaults to `min(devicePixelRatio, 2)`. */
+  dpr?: number;
+};
+
+/** A running background instance. */
+export type Background = {
+  /** Start (or resume) the render loop. */
+  start(): void;
+  /** Pause the render loop. */
+  stop(): void;
+  /** Update options in place (theme, params, animate…) without re-creating. */
+  update(options: Partial<BaseOptions> & Record<string, unknown>): void;
+  /** Force a re-measure of the host element. Normally automatic via ResizeObserver. */
+  resize(): void;
+  /** Tear down: stop the loop, drop listeners, remove the canvas. */
+  destroy(): void;
+};
+
+/**
+ * A pattern. Call it with a host element to mount a {@link Background}.
+ * `O` is the pattern's own option shape, merged on top of {@link BaseOptions}.
+ */
+export type BackgroundFactory<O = Record<string, never>> = (
+  target: HTMLElement,
+  options?: Partial<O & BaseOptions>,
+) => Background;
