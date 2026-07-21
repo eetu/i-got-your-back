@@ -21,6 +21,12 @@ export { halo, ink, mono, neon, palettes, paper, pastel, terminal } from './them
 export { aurora, type AuroraOptions } from './patterns/aurora';
 export { dotGrid, type DotGridOptions } from './patterns/dot-grid';
 export { flowField, type FlowFieldOptions } from './patterns/flow-field';
+export {
+	type Glyph,
+	type GlyphDraw,
+	glyphTile,
+	type GlyphTileOptions
+} from './patterns/glyph-tile';
 export { hex, type HexOptions } from './patterns/hex';
 export { iso, type IsoOptions } from './patterns/iso';
 export { lowPoly, type LowPolyOptions } from './patterns/low-poly';

@@ -3,6 +3,7 @@ import {
 	aurora,
 	dotGrid,
 	flowField,
+	glyphTile,
 	hex,
 	iso,
 	lowPoly,
@@ -184,6 +185,19 @@ export const patterns: PatternEntry[] = [
 		factory: lowPoly,
 		defaults: { cell: 72 },
 		params: [{ key: 'cell', label: 'Cell', kind: 'range', min: 40, max: 140, step: 5 }]
+	},
+	{
+		id: 'glyphTile',
+		name: 'Glyph Tile',
+		category: 'Geometric',
+		renderer: 'Canvas2D',
+		factory: glyphTile,
+		defaults: { glyph: ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'], size: 48, layout: 'grid', jitterRotate: 0 },
+		params: [
+			{ key: 'size', label: 'Size', kind: 'range', min: 24, max: 96, step: 4 },
+			{ key: 'layout', label: 'Layout', kind: 'select', choices: ['grid', 'brick'] },
+			{ key: 'jitterRotate', label: 'Rotate', kind: 'range', min: 0, max: 45, step: 1 }
+		]
 	}
 ];
 

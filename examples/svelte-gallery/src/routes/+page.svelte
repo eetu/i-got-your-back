@@ -53,7 +53,8 @@
 		animate,
 		speed,
 		interactive,
-		...rangeVals,
+		...entry.defaults, // non-param defaults (e.g. glyphTile's `glyph`) flow through …
+		...rangeVals, // … then the live slider/select values override the tunable params
 		...selectVals
 	});
 

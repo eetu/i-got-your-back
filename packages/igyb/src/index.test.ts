@@ -16,7 +16,8 @@ const PATTERNS = [
 	'metaballs',
 	'voronoi',
 	'waveLines',
-	'lowPoly'
+	'lowPoly',
+	'glyphTile'
 ] as const;
 
 test('every pattern is exported as a factory function', () => {
