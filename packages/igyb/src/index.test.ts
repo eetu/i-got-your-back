@@ -2,7 +2,18 @@ import { expect, test } from 'vitest';
 
 import * as igyb from './index';
 
-const PATTERNS = ['truchet', 'hex', 'iso', 'particles', 'flowField', 'plasma'] as const;
+const PATTERNS = [
+	'truchet',
+	'hex',
+	'iso',
+	'particles',
+	'flowField',
+	'plasma',
+	'matrixRain',
+	'aurora',
+	'dotGrid',
+	'starfield'
+] as const;
 
 test('every pattern is exported as a factory function', () => {
 	for (const name of PATTERNS) {

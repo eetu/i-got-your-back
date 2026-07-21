@@ -35,18 +35,23 @@ bg.start();
 
 ## Patterns
 
-| Pattern    | Import (`@anarkisti/igyb/core`) | Renderer | Category   |
-| ---------- | ------------------------------- | -------- | ---------- |
-| Flow field | `flowField`                     | WebGL    | Generative |
-| Plasma     | `plasma`                        | WebGL    | Generative |
-| Particles  | `particles`                     | Canvas2D | Generative |
-| Truchet    | `truchet`                       | Canvas2D | Geometric  |
-| Hex        | `hex`                           | Canvas2D | Geometric  |
-| Isometric  | `iso`                           | Canvas2D | Geometric  |
+| Pattern     | Import (`@anarkisti/igyb/core`) | Renderer | Category   |
+| ----------- | ------------------------------- | -------- | ---------- |
+| Flow field  | `flowField`                     | WebGL    | Generative |
+| Plasma      | `plasma`                        | WebGL    | Generative |
+| Aurora      | `aurora`                        | WebGL    | Generative |
+| Particles   | `particles`                     | Canvas2D | Generative |
+| Matrix rain | `matrixRain`                    | Canvas2D | Generative |
+| Starfield   | `starfield`                     | Canvas2D | Generative |
+| Truchet     | `truchet`                       | Canvas2D | Geometric  |
+| Hex         | `hex`                           | Canvas2D | Geometric  |
+| Isometric   | `iso`                           | Canvas2D | Geometric  |
+| Dot grid    | `dotGrid`                       | Canvas2D | Geometric  |
 
 Deep imports (`@anarkisti/igyb/patterns/flow-field`) keep bundles minimal even without
 tree-shaking. Every pattern also takes `theme`, `animate`, `speed`, `interactive`,
-`reducedMotion` and `dpr`; see the repo root README for the full option table.
+`reducedMotion` and `dpr`. Themes: `ink` (default), `neon`, `pastel`, `terminal`, `mono`,
+`paper`, `halo`, or a custom `Palette`. See the repo root README for the full option table.
 
 ## Authoring
 

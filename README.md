@@ -14,7 +14,7 @@ toolchain (yarn workspaces, Vite lib build, `@anarkisti/eslint-config`, size-lim
 
 - **Tree-shakeable** — import only the patterns you use. `sideEffects: false`; the build
   preserves the source module graph, and size-limit enforces per-pattern budgets.
-- **Themed** — four built-in palettes or bring your own; swap live.
+- **Themed** — seven built-in palettes (vivid + monochrome/halo) or bring your own; swap live.
 - **Animated & interactive** — RAF loop, pointer reactions, per-pattern params.
 - **Accessible** — honors `prefers-reduced-motion` (freezes to a static frame) by default.
 - **Framework-agnostic core** — a Svelte wrapper today; React/Vue are ~30 lines away.
@@ -51,14 +51,18 @@ bg.start();
 
 ## Patterns
 
-| Pattern    | Import (`@anarkisti/igyb/core`) | Renderer | Category   |
-| ---------- | ------------------------------- | -------- | ---------- |
-| Flow field | `flowField`                     | WebGL    | Generative |
-| Plasma     | `plasma`                        | WebGL    | Generative |
-| Particles  | `particles`                     | Canvas2D | Generative |
-| Truchet    | `truchet`                       | Canvas2D | Geometric  |
-| Hex        | `hex`                           | Canvas2D | Geometric  |
-| Isometric  | `iso`                           | Canvas2D | Geometric  |
+| Pattern     | Import (`@anarkisti/igyb/core`) | Renderer | Category   |
+| ----------- | ------------------------------- | -------- | ---------- |
+| Flow field  | `flowField`                     | WebGL    | Generative |
+| Plasma      | `plasma`                        | WebGL    | Generative |
+| Aurora      | `aurora`                        | WebGL    | Generative |
+| Particles   | `particles`                     | Canvas2D | Generative |
+| Matrix rain | `matrixRain`                    | Canvas2D | Generative |
+| Starfield   | `starfield`                     | Canvas2D | Generative |
+| Truchet     | `truchet`                       | Canvas2D | Geometric  |
+| Hex         | `hex`                           | Canvas2D | Geometric  |
+| Isometric   | `iso`                           | Canvas2D | Geometric  |
+| Dot grid    | `dotGrid`                       | Canvas2D | Geometric  |
 
 Deep imports keep bundles minimal even without tree-shaking:
 
@@ -70,14 +74,30 @@ import { flowField } from '@anarkisti/igyb/patterns/flow-field';
 
 Every pattern accepts these on top of its own params:
 
-| Option          | Type                                                   | Default     |
-| --------------- | ------------------------------------------------------ | ----------- |
-| `theme`         | `'ink' \| 'neon' \| 'pastel' \| 'terminal' \| Palette` | `'ink'`     |
-| `animate`       | `boolean`                                              | `true`      |
-| `speed`         | `number`                                               | `1`         |
-| `interactive`   | `boolean`                                              | `false`     |
-| `reducedMotion` | `'respect' \| 'off'`                                   | `'respect'` |
-| `dpr`           | `number`                                               | auto        |
+| Option          | Type                                      | Default     |
+| --------------- | ----------------------------------------- | ----------- |
+| `theme`         | `ThemeName \| Palette` (see themes below) | `'ink'`     |
+| `animate`       | `boolean`                                 | `true`      |
+| `speed`         | `number`                                  | `1`         |
+| `interactive`   | `boolean`                                 | `false`     |
+| `reducedMotion` | `'respect' \| 'off'`                      | `'respect'` |
+| `dpr`           | `number`                                  | auto        |
+
+## Themes
+
+Built-in `ThemeName`s: **`ink`** (default), **`neon`**, **`pastel`**, **`terminal`**, plus three
+subdued/monochrome presets — **`mono`** (grey), **`paper`** (light neutral), **`halo`** (the
+halo-design warm orange). Or pass any palette to match your own design system:
+
+```ts
+import { hex } from '@anarkisti/igyb/core';
+
+// a single accent → a plain monochrome rendering
+hex(el, { theme: { bg: '#0d0d0f', fg: '#fff', accents: ['#e8630a'] } });
+```
+
+Patterns cycle through as many `accents` as the palette provides, so a one-colour palette
+reads as monochrome and a multi-colour one reads vivid. Swap live with `bg.update({ theme })`.
 
 ## Repo layout
 

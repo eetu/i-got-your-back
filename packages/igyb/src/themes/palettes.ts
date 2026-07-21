@@ -28,5 +28,34 @@ export const terminal: Palette = {
 	accents: ['#43ff73', '#12b350', '#8dffab', '#00cc44']
 };
 
+/** Plain monochrome on dark — a single grey hue in three values, for a subdued look. */
+export const mono: Palette = {
+	bg: '#0d0d0f',
+	fg: '#f4f4f6',
+	accents: ['#e6e6ea', '#a2a2aa', '#5c5c64']
+};
+
+/** Monochrome on light — dark neutral marks on off-white paper. */
+export const paper: Palette = {
+	bg: '#f5f4f2',
+	fg: '#1b1a19',
+	accents: ['#3a3936', '#7c7a75', '#b9b6b0']
+};
+
+/** halo-design brand — a single warm orange in shades on neutral-dark. */
+export const halo: Palette = {
+	bg: '#141312',
+	fg: '#f2f0ec',
+	accents: ['#ff7a1a', '#e8630a', '#c25010', '#ffab6b']
+};
+
 /** All built-in themes, keyed by name. */
-export const palettes: Record<ThemeName, Palette> = { ink, neon, pastel, terminal };
+export const palettes: Record<ThemeName, Palette> = {
+	ink,
+	neon,
+	pastel,
+	terminal,
+	mono,
+	paper,
+	halo
+};

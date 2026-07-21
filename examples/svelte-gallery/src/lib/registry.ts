@@ -1,10 +1,14 @@
 import {
 	type AnyBackgroundFactory,
+	aurora,
+	dotGrid,
 	flowField,
 	hex,
 	iso,
+	matrixRain,
 	particles,
 	plasma,
+	starfield,
 	type ThemeName,
 	truchet
 } from '@anarkisti/igyb/core';
@@ -48,6 +52,15 @@ export const patterns: PatternEntry[] = [
 		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1, max: 10, step: 0.5 }]
 	},
 	{
+		id: 'aurora',
+		name: 'Aurora',
+		category: 'Generative',
+		renderer: 'WebGL',
+		factory: aurora,
+		defaults: { scale: 2 },
+		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1, max: 6, step: 0.5 }]
+	},
+	{
 		id: 'particles',
 		name: 'Particles',
 		category: 'Generative',
@@ -58,6 +71,30 @@ export const patterns: PatternEntry[] = [
 			{ key: 'spacing', label: 'Spacing', kind: 'range', min: 60, max: 200, step: 5 },
 			{ key: 'linkDistance', label: 'Link', kind: 'range', min: 60, max: 220, step: 5 },
 			{ key: 'pointerMode', label: 'Pointer', kind: 'select', choices: ['attract', 'repel'] }
+		]
+	},
+	{
+		id: 'matrixRain',
+		name: 'Matrix Rain',
+		category: 'Generative',
+		renderer: 'Canvas2D',
+		factory: matrixRain,
+		defaults: { fontSize: 16, trail: 14 },
+		params: [
+			{ key: 'fontSize', label: 'Glyph', kind: 'range', min: 10, max: 32, step: 1 },
+			{ key: 'trail', label: 'Trail', kind: 'range', min: 6, max: 24, step: 1 }
+		]
+	},
+	{
+		id: 'starfield',
+		name: 'Starfield',
+		category: 'Generative',
+		renderer: 'Canvas2D',
+		factory: starfield,
+		defaults: { count: 320, warp: 1 },
+		params: [
+			{ key: 'count', label: 'Stars', kind: 'range', min: 80, max: 800, step: 20 },
+			{ key: 'warp', label: 'Warp', kind: 'range', min: 0.3, max: 3, step: 0.1 }
 		]
 	},
 	{
@@ -92,6 +129,18 @@ export const patterns: PatternEntry[] = [
 		factory: iso,
 		defaults: { size: 40 },
 		params: [{ key: 'size', label: 'Size', kind: 'range', min: 18, max: 90, step: 2 }]
+	},
+	{
+		id: 'dotGrid',
+		name: 'Dot Grid',
+		category: 'Geometric',
+		renderer: 'Canvas2D',
+		factory: dotGrid,
+		defaults: { spacing: 34, dotSize: 3 },
+		params: [
+			{ key: 'spacing', label: 'Spacing', kind: 'range', min: 18, max: 70, step: 2 },
+			{ key: 'dotSize', label: 'Dot', kind: 'range', min: 1, max: 8, step: 0.5 }
+		]
 	}
 ];
 
@@ -100,5 +149,8 @@ export const themeNames = [
 	'ink',
 	'neon',
 	'pastel',
-	'terminal'
+	'terminal',
+	'mono',
+	'paper',
+	'halo'
 ] as const satisfies readonly ThemeName[];

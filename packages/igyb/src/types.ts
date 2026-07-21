@@ -8,8 +8,8 @@ export type Palette = {
 	accents: string[];
 };
 
-/** Names of the built-in themes shipped from `i-got-your-back/themes`. */
-export type ThemeName = 'ink' | 'neon' | 'pastel' | 'terminal';
+/** Names of the built-in themes. */
+export type ThemeName = 'ink' | 'neon' | 'pastel' | 'terminal' | 'mono' | 'paper' | 'halo';
 
 /** Either a built-in theme name or a raw palette object. */
 export type ThemeInput = ThemeName | Palette;

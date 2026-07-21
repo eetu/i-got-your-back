@@ -62,7 +62,7 @@ export const truchet: BackgroundFactory<TruchetOptions> = defineCanvas2D<Truchet
 					ctx.arc(x, y + t, r, Math.PI * 1.5, Math.PI * 2);
 				} else {
 					ctx.arc(x, y, r, 0, Math.PI * 0.5);
-					ctx.moveTo(x + t, y + r);
+					ctx.moveTo(x + r, y + t);
 					ctx.arc(x + t, y + t, r, Math.PI, Math.PI * 1.5);
 				}
 				ctx.stroke();
