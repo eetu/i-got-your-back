@@ -1,0 +1,60 @@
+name: Release
+
+# Publish @anarkisti/igyb to the public npm registry when a v* tag is pushed.
+#
+# Tokenless: authenticates via npm trusted publishing (OIDC) and attaches a provenance
+# statement — there is NO NPM_TOKEN secret. The package needs a trusted publisher
+# configured on npm (repo eetu/i-got-your-back, workflow .github/workflows/release.yaml)
+# before its first OIDC publish; bootstrap a brand-new package with one seed publish
+# via a granular token, then switch to OIDC.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+  id-token: write # mint the OIDC token npm exchanges for a short-lived publish credential
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0 # full history (+ origin/main ref) so the tag-on-main check works
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version-file: .node-version
+      - name: Verify tag is on main
+        run: git merge-base --is-ancestor "${{ github.sha }}" origin/main
+      - name: Verify tag matches the package version
+        run: |
+          v="v$(node -p "require('./packages/igyb/package.json').version")"
+          if [ "$v" != "${{ github.ref_name }}" ]; then
+            echo "@anarkisti/igyb is $v but the tag is ${{ github.ref_name }}"
+            exit 1
+          fi
+      - name: Validate, build & publish
+        run: |
+          yarn() { node .yarn/releases/yarn-*.cjs "$@"; }
+          yarn install --immutable
+          # Gate the publish on the full suite (same checks as CI) — a tag must never ship
+          # unvalidated code, and npm publishes are effectively irreversible.
+          ./node_modules/.bin/playwright install --with-deps chromium
+          yarn lint
+          yarn format
+          yarn build
+          yarn typecheck
+          yarn test
+          yarn size
+          node scripts/publish-smoke.mjs
+          # npm dist-tag: prereleases (0.1.0-rc.1) → `rc`, finals → `latest`.
+          VERSION=$(node -p "require('./packages/igyb/package.json').version")
+          if [[ "$VERSION" == *-* ]]; then TAG=rc; else TAG=latest; fi
+          # `npm view` guard makes reruns idempotent (republishing a version is a hard 403).
+          if npm view "@anarkisti/igyb@$VERSION" version >/dev/null 2>&1; then
+            echo "@anarkisti/igyb@$VERSION already published — nothing to do"
+            exit 0
+          fi
+          yarn workspace @anarkisti/igyb pack --out /tmp/igyb.tgz
+          npm publish /tmp/igyb.tgz --provenance --access public --tag "$TAG"

@@ -1,0 +1,31 @@
+{
+	"name": "@anarkisti/igyb-gallery",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"typecheck": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"test": "echo \"no e2e yet\""
+	},
+	"dependencies": {
+		"@anarkisti/igyb": "workspace:^"
+	},
+	"devDependencies": {
+		"@anarkisti/eslint-config": "^1",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.69",
+		"@sveltejs/vite-plugin-svelte": "^7",
+		"@types/node": "^25",
+		"eslint": "^10",
+		"svelte": "^5.56",
+		"svelte-check": "^4.7",
+		"typescript": "^6",
+		"vite": "^8.1"
+	}
+}

@@ -1,5 +1,11 @@
 node_modules/
 dist/
-demo/dist/
+build/
+.svelte-kit/
 *.tsbuildinfo
 .DS_Store
+
+# yarn (berry) — keep the vendored release, ignore the rest
+.yarn/*
+!.yarn/releases
+.pnp.*

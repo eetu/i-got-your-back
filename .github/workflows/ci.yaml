@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  checks:
+    name: 'Lint / typecheck / test / build / size'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version-file: .node-version
+      # Yarn is vendored (.yarn/releases/*.cjs) and invoked via node — no corepack
+      # (node 25+ dropped the bundle), so this stays node-version-agnostic.
+      - name: Checks
+        run: |
+          yarn() { node .yarn/releases/yarn-*.cjs "$@"; }
+          yarn install --immutable
+          # The canvas/WebGL mount tests (vitest browser project) need chromium.
+          ./node_modules/.bin/playwright install --with-deps chromium
+          yarn lint
+          yarn format
+          # Build before size (size-limit measures dist) and the publish smoke.
+          yarn build
+          yarn typecheck
+          yarn test
+          # Bundle-size budgets — fails the build if the core (or a tree-shaken
+          # single-pattern import) bloats past its limit.
+          yarn size
+          # Publish-integrity smoke: pack the package as npm consumers get it →
+          # install the tarball into a throwaway consumer → bare-node import of /core.
+          node scripts/publish-smoke.mjs

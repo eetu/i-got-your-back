@@ -1,0 +1,99 @@
+{
+	"name": "@anarkisti/igyb",
+	"version": "0.1.0",
+	"description": "Tree-shakeable repeating & generative backgrounds — geometric tiles and WebGL generative art, framework-agnostic with a Svelte wrapper.",
+	"keywords": [
+		"background",
+		"backgrounds",
+		"pattern",
+		"generative",
+		"generative-art",
+		"webgl",
+		"canvas",
+		"svelte",
+		"geometric",
+		"animation",
+		"tree-shakeable"
+	],
+	"license": "MIT",
+	"type": "module",
+	"sideEffects": false,
+	"files": [
+		"dist",
+		"src/svelte"
+	],
+	"exports": {
+		"./core": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./patterns/*": {
+			"types": "./dist/patterns/*/index.d.ts",
+			"import": "./dist/patterns/*/index.js"
+		},
+		"./svelte": {
+			"types": "./src/svelte/Background.svelte.d.ts",
+			"svelte": "./src/svelte/Background.svelte",
+			"default": "./src/svelte/Background.svelte"
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/eetu/i-got-your-back.git",
+		"directory": "packages/igyb"
+	},
+	"homepage": "https://eetu.github.io/i-got-your-back/",
+	"scripts": {
+		"build": "vite build",
+		"prepack": "vite build",
+		"test": "vitest run",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"typecheck": "svelte-check --tsconfig ./tsconfig.json",
+		"size": "size-limit"
+	},
+	"size-limit": [
+		{
+			"name": "core — every pattern imported",
+			"path": "dist/index.js",
+			"limit": "8 kB"
+		},
+		{
+			"name": "tree-shaken: one WebGL pattern (flowField)",
+			"path": "dist/index.js",
+			"import": "{ flowField }",
+			"limit": "5 kB"
+		},
+		{
+			"name": "tree-shaken: one Canvas2D pattern (truchet)",
+			"path": "dist/index.js",
+			"import": "{ truchet }",
+			"limit": "3 kB"
+		}
+	],
+	"peerDependencies": {
+		"svelte": "^5"
+	},
+	"peerDependenciesMeta": {
+		"svelte": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@anarkisti/eslint-config": "^1",
+		"@sveltejs/vite-plugin-svelte": "^7",
+		"@vitest/browser": "^4.1",
+		"@vitest/browser-playwright": "^4.1",
+		"eslint": "^10",
+		"playwright": "^1.61",
+		"svelte": "^5.56",
+		"svelte-check": "^4.7",
+		"typescript": "^6",
+		"vite": "^8.1",
+		"vite-plugin-dts": "^5",
+		"vitest": "^4.1"
+	}
+}
