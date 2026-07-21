@@ -43,7 +43,7 @@ export const hex: BackgroundFactory<HexOptions> = defineCanvas2D<HexOptions>({
 				const cx = col * hw;
 				const cy = row * vh + (col % 2 ? vh / 2 : 0);
 
-				let b = 0.4 + 0.35 * Math.sin(cx * 0.01 + cy * 0.012 - (animating ? time * 1.4 : 0));
+				let b = 0.7 + 0.16 * Math.sin(cx * 0.008 + cy * 0.01 - (animating ? time * 0.8 : 0));
 				if (options.interactive && pointer.active) {
 					const d = Math.hypot(cx - px, cy - py);
 					b += Math.max(0, 1 - d / reach) * 0.7;

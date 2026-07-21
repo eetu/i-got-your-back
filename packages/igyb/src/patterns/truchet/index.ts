@@ -46,8 +46,8 @@ export const truchet: BackgroundFactory<TruchetOptions> = defineCanvas2D<Truchet
 				const x = col * t;
 				const y = row * t;
 
-				const wave = 0.5 + 0.5 * Math.sin((col + row) * 0.55 - (animating ? time * 1.6 : 0));
-				let intensity = 0.35 + 0.65 * wave;
+				const wave = 0.5 + 0.5 * Math.sin((col + row) * 0.5 - (animating ? time * 0.7 : 0));
+				let intensity = 0.78 + 0.22 * wave;
 				if (options.interactive && pointer.active) {
 					const d = Math.hypot(x + r - px, y + r - py);
 					intensity = Math.min(1, intensity + Math.max(0, 1 - d / reach) * 0.9);

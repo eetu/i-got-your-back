@@ -33,7 +33,7 @@ export const dotGrid: BackgroundFactory<DotGridOptions> = defineCanvas2D<DotGrid
 			for (let i = 0; i < cols; i++) {
 				const x = i * gap;
 				const y = j * gap;
-				let s = animating ? 0.5 + 0.5 * Math.sin((x + y) * 0.012 - time * 1.6) : 0.6;
+				let s = animating ? 0.62 + 0.18 * Math.sin((x + y) * 0.01 - time * 0.9) : 0.62;
 				if (options.interactive && pointer.active) {
 					const d = Math.hypot(x - px, y - py);
 					s += Math.sin(d * 0.045 - time * 6) * Math.max(0, 1 - d / reach) * 0.9;

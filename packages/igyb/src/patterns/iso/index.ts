@@ -43,7 +43,7 @@ export const iso: BackgroundFactory<IsoOptions> = defineCanvas2D<IsoOptions>({
 				const sx = cx0 + u * w;
 				const sy = cy0 + v * h;
 				const ch =
-					base * (0.55 + 0.45 * Math.sin(u * 0.45 - v * 0.25 - (animating ? time * 1.5 : 0)));
+					base * (0.72 + 0.24 * Math.sin(u * 0.4 - v * 0.22 - (animating ? time * 0.9 : 0)));
 				const accent = palette.accent(hash2(u, v));
 
 				// top diamond

@@ -39,8 +39,8 @@ export const patterns: PatternEntry[] = [
 		category: 'Generative',
 		renderer: 'WebGL',
 		factory: flowField,
-		defaults: { scale: 3 },
-		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1, max: 8, step: 0.5 }]
+		defaults: { scale: 1.8 },
+		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 0.8, max: 4, step: 0.2 }]
 	},
 	{
 		id: 'plasma',
@@ -48,8 +48,8 @@ export const patterns: PatternEntry[] = [
 		category: 'Generative',
 		renderer: 'WebGL',
 		factory: plasma,
-		defaults: { scale: 4 },
-		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1, max: 10, step: 0.5 }]
+		defaults: { scale: 3.5 },
+		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1.5, max: 7, step: 0.5 }]
 	},
 	{
 		id: 'aurora',
@@ -57,8 +57,8 @@ export const patterns: PatternEntry[] = [
 		category: 'Generative',
 		renderer: 'WebGL',
 		factory: aurora,
-		defaults: { scale: 2 },
-		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1, max: 6, step: 0.5 }]
+		defaults: { scale: 1.5 },
+		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 0.8, max: 4, step: 0.2 }]
 	},
 	{
 		id: 'particles',
@@ -91,9 +91,9 @@ export const patterns: PatternEntry[] = [
 		category: 'Generative',
 		renderer: 'Canvas2D',
 		factory: starfield,
-		defaults: { count: 320, warp: 1 },
+		defaults: { count: 700, warp: 1 },
 		params: [
-			{ key: 'count', label: 'Stars', kind: 'range', min: 80, max: 800, step: 20 },
+			{ key: 'count', label: 'Stars', kind: 'range', min: 120, max: 1200, step: 20 },
 			{ key: 'warp', label: 'Warp', kind: 'range', min: 0.3, max: 3, step: 0.1 }
 		]
 	},
