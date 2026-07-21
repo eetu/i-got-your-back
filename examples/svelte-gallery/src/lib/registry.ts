@@ -5,12 +5,16 @@ import {
 	flowField,
 	hex,
 	iso,
+	lowPoly,
 	matrixRain,
+	metaballs,
 	particles,
 	plasma,
 	starfield,
 	type ThemeName,
-	truchet
+	truchet,
+	voronoi,
+	waveLines
 } from '@anarkisti/igyb/core';
 
 // A single tweakable option surfaced in the playground: either a numeric range (slider)
@@ -59,6 +63,24 @@ export const patterns: PatternEntry[] = [
 		factory: aurora,
 		defaults: { scale: 1.5 },
 		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 0.8, max: 4, step: 0.2 }]
+	},
+	{
+		id: 'metaballs',
+		name: 'Metaballs',
+		category: 'Generative',
+		renderer: 'WebGL',
+		factory: metaballs,
+		defaults: { size: 1 },
+		params: [{ key: 'size', label: 'Size', kind: 'range', min: 0.6, max: 1.6, step: 0.1 }]
+	},
+	{
+		id: 'voronoi',
+		name: 'Voronoi',
+		category: 'Generative',
+		renderer: 'WebGL',
+		factory: voronoi,
+		defaults: { scale: 5 },
+		params: [{ key: 'scale', label: 'Cells', kind: 'range', min: 3, max: 12, step: 1 }]
 	},
 	{
 		id: 'particles',
@@ -141,6 +163,27 @@ export const patterns: PatternEntry[] = [
 			{ key: 'spacing', label: 'Spacing', kind: 'range', min: 18, max: 70, step: 2 },
 			{ key: 'dotSize', label: 'Dot', kind: 'range', min: 1, max: 8, step: 0.5 }
 		]
+	},
+	{
+		id: 'waveLines',
+		name: 'Wave Lines',
+		category: 'Geometric',
+		renderer: 'Canvas2D',
+		factory: waveLines,
+		defaults: { spacing: 26, amplitude: 1 },
+		params: [
+			{ key: 'spacing', label: 'Spacing', kind: 'range', min: 14, max: 60, step: 2 },
+			{ key: 'amplitude', label: 'Amp', kind: 'range', min: 0.3, max: 2, step: 0.1 }
+		]
+	},
+	{
+		id: 'lowPoly',
+		name: 'Low Poly',
+		category: 'Geometric',
+		renderer: 'Canvas2D',
+		factory: lowPoly,
+		defaults: { cell: 72 },
+		params: [{ key: 'cell', label: 'Cell', kind: 'range', min: 40, max: 140, step: 5 }]
 	}
 ];
 

@@ -12,7 +12,11 @@ const PATTERNS = [
 	'matrixRain',
 	'aurora',
 	'dotGrid',
-	'starfield'
+	'starfield',
+	'metaballs',
+	'voronoi',
+	'waveLines',
+	'lowPoly'
 ] as const;
 
 test('every pattern is exported as a factory function', () => {

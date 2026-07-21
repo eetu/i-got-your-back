@@ -59,7 +59,7 @@
 		{
 			"name": "core — every pattern imported",
 			"path": "dist/index.js",
-			"limit": "8 kB"
+			"limit": "10 kB"
 		},
 		{
 			"name": "tree-shaken: one WebGL pattern (flowField)",
