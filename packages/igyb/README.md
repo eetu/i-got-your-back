@@ -50,8 +50,42 @@ bg.start();
 
 Deep imports (`@anarkisti/igyb/patterns/flow-field`) keep bundles minimal even without
 tree-shaking. Every pattern also takes `theme`, `animate`, `speed`, `interactive`,
-`reducedMotion` and `dpr`. Themes: `ink` (default), `neon`, `pastel`, `terminal`, `mono`,
-`paper`, `halo`, or a custom `Palette`. See the repo root README for the full option table.
+`pointerSource`, `reducedMotion` and `dpr`. Themes: `ink` (default), `neon`, `pastel`,
+`terminal`, `mono`, `paper`, `halo`, or a custom `Palette`. See the repo root README for the
+full option table.
+
+## Theming from CSS variables
+
+For token-driven apps, read the palette straight from CSS custom properties and pass `theme`
+as a **thunk**. On a light/dark flip, call `bg.refresh()` — it re-invokes the thunk and
+repaints in place, no teardown:
+
+```ts
+import { glyphTile, paletteFromCSS } from '@anarkisti/igyb/core';
+
+const map = { bg: '--surface', fg: '--ink', accents: ['--accent'] };
+const bg = glyphTile(el, { theme: () => paletteFromCSS(map) });
+bg.start();
+
+// when your theme toggles (after the new tokens land on the element):
+bg.refresh();
+```
+
+Drawing your own glyph/marks? The `glyphTile` callback receives the resolved `palette`, and
+`@anarkisti/igyb/core` exports small color helpers so you don't re-roll them:
+
+```ts
+import { lighten, mix, toRgb } from '@anarkisti/igyb/core';
+
+glyphTile(el, {
+	glyph(ctx, size, i, { palette, highlight }) {
+		ctx.strokeStyle = mix(palette.fg, lighten(palette.fg, 0.8), highlight); // reacts to the pointer
+		ctx.strokeRect(-size / 4, -size / 4, size / 2, size / 2);
+	}
+});
+```
+
+`toRgb` / `toRgbString`, `mix`, `lighten`, `darken` accept hex or `rgb()` strings.
 
 ## Authoring
 

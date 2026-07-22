@@ -14,7 +14,11 @@ export type { Canvas2DEnv, WebGLEnv } from './runtime/define';
 export { defineCanvas2D, defineWebGL } from './runtime/define';
 export type { PatternEnv } from './runtime/mount';
 
+// Color helpers — for drawing your own glyphs/marks against a themed palette
+export { darken, lighten, mix, toRgb, toRgbString } from './runtime/color';
+
 // Themes
+export { type CSSVarMap, paletteFromCSS, type ResolvedPalette } from './runtime/theme';
 export { halo, ink, mono, neon, palettes, paper, pastel, terminal } from './themes/palettes';
 
 // Patterns (each is independently tree-shakeable)

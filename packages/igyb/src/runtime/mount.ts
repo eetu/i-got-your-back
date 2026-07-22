@@ -40,6 +40,11 @@ const BASE_DEFAULTS: Required<Omit<BaseOptions, 'dpr'>> & { theme: ThemeInput } 
 	reducedMotion: 'respect'
 };
 
+/** Resolve a `theme` option, unwrapping a thunk (used for CSS-var palettes). */
+function resolveThemeOption(theme: BaseOptions['theme']): ResolvedPalette {
+	return resolveTheme(typeof theme === 'function' ? theme() : theme);
+}
+
 function mount<O extends object>(
 	target: HTMLElement,
 	spec: MountSpec<O>,
@@ -69,7 +74,7 @@ function mount<O extends object>(
 		gl,
 		time: 0,
 		dt: 0,
-		palette: resolveTheme(opts.theme),
+		palette: resolveThemeOption(opts.theme),
 		pointer: pointerCtl.pointer,
 		options: opts,
 		state: {}
@@ -138,7 +143,7 @@ function mount<O extends object>(
 	function update(next: Partial<O & BaseOptions>): void {
 		const themeChanged = 'theme' in next;
 		Object.assign(env.options as object, next);
-		if (themeChanged) env.palette = resolveTheme(env.options.theme);
+		if (themeChanged) env.palette = resolveThemeOption(env.options.theme);
 		if ('interactive' in next) syncPointer();
 		if ('dpr' in next) surfaceCtl.measure();
 		reconfigure();
@@ -152,6 +157,12 @@ function mount<O extends object>(
 		if (!loop.running) renderOnce();
 	}
 
+	function refresh(): void {
+		env.palette = resolveThemeOption(env.options.theme);
+		reconfigure();
+		if (!loop.running) renderOnce();
+	}
+
 	function destroy(): void {
 		loop.stop();
 		pointerCtl.detach();
@@ -159,7 +170,7 @@ function mount<O extends object>(
 		if (gl) gl.getExtension('WEBGL_lose_context')?.loseContext();
 	}
 
-	return { start, stop, update, resize, destroy };
+	return { start, stop, update, resize, refresh, destroy };
 }
 
 export { mount };

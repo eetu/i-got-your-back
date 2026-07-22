@@ -16,8 +16,12 @@ export type ThemeInput = ThemeName | Palette;
 
 /** Options every pattern understands, regardless of renderer. */
 export type BaseOptions = {
-	/** Built-in theme name or a custom palette. Default `'ink'`. */
-	theme?: ThemeInput;
+	/**
+	 * Built-in theme name, a custom palette, or a thunk returning one. A thunk is re-invoked
+	 * by {@link Background.refresh} — use it with `paletteFromCSS` to re-read CSS-var themes on
+	 * a light/dark flip without recreating the background. Default `'ink'`.
+	 */
+	theme?: ThemeInput | (() => ThemeInput);
 	/** Animate on a RAF loop. Default `true`. */
 	animate?: boolean;
 	/** Time multiplier for animation. Default `1`. */
@@ -46,6 +50,8 @@ export type Background = {
 	update(options: Partial<BaseOptions> & Record<string, unknown>): void;
 	/** Force a re-measure of the host element. Normally automatic via ResizeObserver. */
 	resize(): void;
+	/** Re-resolve the theme (re-invoking a `theme` thunk) and repaint — for CSS-var palettes after a theme flip. */
+	refresh(): void;
 	/** Tear down: stop the loop, drop listeners, remove the canvas. */
 	destroy(): void;
 };

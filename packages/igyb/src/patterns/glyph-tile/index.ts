@@ -1,4 +1,5 @@
 import { defineCanvas2D } from '../../runtime/define';
+import type { ResolvedPalette } from '../../runtime/theme';
 import type { BackgroundFactory } from '../../types';
 
 /** Per-cell drawing context passed to a {@link GlyphDraw}. */
@@ -7,6 +8,8 @@ export type GlyphEnv = {
 	time: number;
 	/** Pointer proximity for this cell: 0 (far, or not interactive) … 1 (at the pointer). */
 	highlight: number;
+	/** Resolved theme palette — read `fg`/`bg`/`accent(index)` to colour a custom glyph. */
+	palette: ResolvedPalette;
 };
 
 /**
@@ -117,7 +120,7 @@ export const glyphTile: BackgroundFactory<GlyphTileOptions> = defineCanvas2D<Gly
 					ctx.font = font;
 					ctx.fillText(g, 0, 0);
 				} else {
-					g(ctx, box, h, { time, highlight });
+					g(ctx, box, h, { time, highlight, palette });
 				}
 				ctx.restore();
 			}
