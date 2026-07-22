@@ -24,6 +24,12 @@ export type BaseOptions = {
 	speed?: number;
 	/** React to pointer input. Default `false`. */
 	interactive?: boolean;
+	/**
+	 * Where interactive patterns read the pointer from. `'window'` tracks it globally —
+	 * use it when the canvas is behind `pointer-events: none` (a full-page background).
+	 * Default `'element'`.
+	 */
+	pointerSource?: 'element' | 'window';
 	/** How to treat `prefers-reduced-motion`. `'respect'` freezes to a static frame. Default `'respect'`. */
 	reducedMotion?: 'respect' | 'off';
 	/** Device-pixel-ratio override. Defaults to `min(devicePixelRatio, 2)`. */

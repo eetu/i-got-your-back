@@ -36,6 +36,7 @@ const BASE_DEFAULTS: Required<Omit<BaseOptions, 'dpr'>> & { theme: ThemeInput } 
 	animate: true,
 	speed: 1,
 	interactive: false,
+	pointerSource: 'element',
 	reducedMotion: 'respect'
 };
 
@@ -59,7 +60,7 @@ function mount<O extends object>(
 		if (!gl) throw new Error('[igyb] WebGL2 context unavailable');
 	}
 
-	const pointerCtl = createPointer(surface.canvas);
+	const pointerCtl = createPointer(surface.canvas, opts.pointerSource);
 	let pointerAttached = false;
 
 	const env: PatternEnv<O> = {

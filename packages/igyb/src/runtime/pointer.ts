@@ -15,8 +15,16 @@ export type PointerControl = {
 	detach(): void;
 };
 
-/** Track pointer position over a canvas, in both device pixels and normalized units. */
-export function createPointer(canvas: HTMLCanvasElement): PointerControl {
+/**
+ * Track pointer position over a canvas, in device pixels and normalized units.
+ * `source: 'window'` listens on the window instead of the canvas — use it when the
+ * canvas sits behind `pointer-events: none` (e.g. a full-page background layer), so it
+ * still follows the pointer even while it's over other content.
+ */
+export function createPointer(
+	canvas: HTMLCanvasElement,
+	source: 'element' | 'window' = 'element'
+): PointerControl {
 	const pointer: Pointer = { x: 0, y: 0, nx: 0.5, ny: 0.5, active: false };
 
 	function set(e: PointerEvent): void {
@@ -29,13 +37,20 @@ export function createPointer(canvas: HTMLCanvasElement): PointerControl {
 		pointer.y = ny * canvas.height;
 	}
 
-	const onMove = (e: PointerEvent): void => set(e);
+	const onMove = (e: PointerEvent): void => {
+		if (source === 'window') pointer.active = true;
+		set(e);
+	};
 	const onEnter = (e: PointerEvent): void => {
 		pointer.active = true;
 		set(e);
 	};
 	const onLeave = (): void => {
 		pointer.active = false;
+	};
+	// window mode: the pointer left the viewport entirely
+	const onOut = (e: PointerEvent): void => {
+		if (!e.relatedTarget) pointer.active = false;
 	};
 
 	let attached = false;
@@ -45,16 +60,26 @@ export function createPointer(canvas: HTMLCanvasElement): PointerControl {
 		attach() {
 			if (attached) return;
 			attached = true;
-			canvas.addEventListener('pointermove', onMove);
-			canvas.addEventListener('pointerenter', onEnter);
-			canvas.addEventListener('pointerleave', onLeave);
+			if (source === 'window') {
+				window.addEventListener('pointermove', onMove);
+				window.addEventListener('pointerout', onOut);
+			} else {
+				canvas.addEventListener('pointermove', onMove);
+				canvas.addEventListener('pointerenter', onEnter);
+				canvas.addEventListener('pointerleave', onLeave);
+			}
 		},
 		detach() {
 			if (!attached) return;
 			attached = false;
-			canvas.removeEventListener('pointermove', onMove);
-			canvas.removeEventListener('pointerenter', onEnter);
-			canvas.removeEventListener('pointerleave', onLeave);
+			if (source === 'window') {
+				window.removeEventListener('pointermove', onMove);
+				window.removeEventListener('pointerout', onOut);
+			} else {
+				canvas.removeEventListener('pointermove', onMove);
+				canvas.removeEventListener('pointerenter', onEnter);
+				canvas.removeEventListener('pointerleave', onLeave);
+			}
 		}
 	};
 }

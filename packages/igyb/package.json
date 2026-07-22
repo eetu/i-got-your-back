@@ -1,6 +1,6 @@
 {
 	"name": "@anarkisti/igyb",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "Tree-shakeable repeating & generative backgrounds — geometric tiles and WebGL generative art, framework-agnostic with a Svelte wrapper.",
 	"keywords": [
 		"background",
