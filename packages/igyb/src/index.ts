@@ -14,6 +14,9 @@ export type { Canvas2DEnv, WebGLEnv } from './runtime/define';
 export { defineCanvas2D, defineWebGL } from './runtime/define';
 export type { PatternEnv } from './runtime/mount';
 
+// Compositor — stack patterns into one background
+export { type Layer, layers } from './runtime/layers';
+
 // Color helpers — for drawing your own glyphs/marks against a themed palette
 export { darken, lighten, mix, toRgb, toRgbString } from './runtime/color';
 
@@ -45,6 +48,7 @@ export {
 	glyphTile,
 	type GlyphTileOptions
 } from './patterns/glyph-tile';
+export { grain, type GrainOptions } from './patterns/grain';
 export { hex, type HexOptions } from './patterns/hex';
 export { iso, type IsoOptions } from './patterns/iso';
 export { lowPoly, type LowPolyOptions } from './patterns/low-poly';
@@ -53,7 +57,9 @@ export { metaballs, type MetaballsOptions } from './patterns/metaballs';
 export { particles, type ParticlesOptions } from './patterns/particles';
 export { plasma, type PlasmaOptions } from './patterns/plasma';
 export { plasmaBall, type PlasmaBallOptions } from './patterns/plasma-ball';
+export { scanlines, type ScanlinesOptions } from './patterns/scanlines';
 export { starfield, type StarfieldOptions } from './patterns/starfield';
 export { truchet, type TruchetOptions } from './patterns/truchet';
+export { vignette, type VignetteOptions } from './patterns/vignette';
 export { voronoi, type VoronoiOptions } from './patterns/voronoi';
 export { waveLines, type WaveLinesOptions } from './patterns/wave-lines';

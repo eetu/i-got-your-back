@@ -11,6 +11,7 @@ import {
 	metaballs,
 	particles,
 	plasma,
+	plasmaBall,
 	starfield,
 	type ThemeName,
 	truchet,
@@ -55,6 +56,18 @@ export const patterns: PatternEntry[] = [
 		factory: plasma,
 		defaults: { scale: 3.5 },
 		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1.5, max: 7, step: 0.5 }]
+	},
+	{
+		id: 'plasmaBall',
+		name: 'Plasma Ball',
+		category: 'Generative',
+		renderer: 'Canvas2D',
+		factory: plasmaBall,
+		defaults: { bolts: 6, coreRadius: 0.12, jitter: 14 },
+		params: [
+			{ key: 'bolts', label: 'Bolts', kind: 'range', min: 3, max: 12, step: 1 },
+			{ key: 'jitter', label: 'Jitter', kind: 'range', min: 4, max: 30, step: 1 }
+		]
 	},
 	{
 		id: 'aurora',
@@ -209,5 +222,9 @@ export const themeNames = [
 	'terminal',
 	'mono',
 	'paper',
-	'halo'
+	'halo',
+	'sunset',
+	'ocean',
+	'cyberpunk',
+	'forest'
 ] as const satisfies readonly ThemeName[];
