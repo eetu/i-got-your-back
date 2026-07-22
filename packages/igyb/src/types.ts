@@ -67,6 +67,11 @@ export type Background = {
 	resize(): void;
 	/** Re-resolve the theme (re-invoking a `theme` thunk) and repaint — for CSS-var palettes after a theme flip. */
 	refresh(): void;
+	/**
+	 * Render a single frame and return it as a data URL — a static poster for SSR/LCP
+	 * placeholders or a `prefers-reduced-motion` still. Default type `'image/png'`.
+	 */
+	capture(type?: string, quality?: number): string;
 	/** Tear down: stop the loop, drop listeners, remove the canvas. */
 	destroy(): void;
 };

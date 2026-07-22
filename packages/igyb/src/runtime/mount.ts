@@ -206,6 +206,11 @@ function mount<O extends object>(
 		if (!loop.running && !isPaused()) renderOnce();
 	}
 
+	function capture(type = 'image/png', quality?: number): string {
+		renderOnce(); // draw a fresh frame synchronously so the buffer is valid to read
+		return surface.canvas.toDataURL(type, quality);
+	}
+
 	function destroy(): void {
 		loop.stop();
 		pointerCtl.detach();
@@ -215,7 +220,7 @@ function mount<O extends object>(
 		if (gl) gl.getExtension('WEBGL_lose_context')?.loseContext();
 	}
 
-	return { start, stop, update, resize, refresh, destroy };
+	return { start, stop, update, resize, refresh, capture, destroy };
 }
 
 export { mount };

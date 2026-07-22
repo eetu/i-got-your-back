@@ -4,6 +4,7 @@ import {
 	dotGrid,
 	flowField,
 	glyphTile,
+	gradientMesh,
 	hex,
 	iso,
 	lowPoly,
@@ -77,6 +78,15 @@ export const patterns: PatternEntry[] = [
 		factory: aurora,
 		defaults: { scale: 1.5 },
 		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 0.8, max: 4, step: 0.2 }]
+	},
+	{
+		id: 'gradientMesh',
+		name: 'Gradient Mesh',
+		category: 'Generative',
+		renderer: 'WebGL',
+		factory: gradientMesh,
+		defaults: { scale: 1.2 },
+		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 0.6, max: 3, step: 0.1 }]
 	},
 	{
 		id: 'metaballs',

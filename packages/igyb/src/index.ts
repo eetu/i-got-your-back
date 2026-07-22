@@ -48,6 +48,7 @@ export {
 	glyphTile,
 	type GlyphTileOptions
 } from './patterns/glyph-tile';
+export { gradientMesh, type GradientMeshOptions } from './patterns/gradient-mesh';
 export { grain, type GrainOptions } from './patterns/grain';
 export { hex, type HexOptions } from './patterns/hex';
 export { iso, type IsoOptions } from './patterns/iso';

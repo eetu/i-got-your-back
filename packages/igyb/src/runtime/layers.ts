@@ -58,6 +58,28 @@ export function layers(
 			refresh() {
 				for (const i of instances) i.refresh();
 			},
+			capture(type = 'image/png', quality?: number): string {
+				// Flatten the stack onto a temp canvas. mix-blend-mode names map 1:1 to
+				// canvas globalCompositeOperation for the common modes (screen/overlay/…).
+				const cells = Array.from(container.children) as HTMLElement[];
+				const first = cells[0]?.querySelector('canvas');
+				if (!first) return '';
+				const tmp = document.createElement('canvas');
+				tmp.width = first.width;
+				tmp.height = first.height;
+				const tctx = tmp.getContext('2d');
+				if (!tctx) return '';
+				for (const cell of cells) {
+					const cv = cell.querySelector('canvas');
+					if (!cv) continue;
+					tctx.globalAlpha = Number(cell.style.opacity || '1');
+					const blend = cell.style.mixBlendMode;
+					tctx.globalCompositeOperation =
+						!blend || blend === 'normal' ? 'source-over' : (blend as GlobalCompositeOperation);
+					tctx.drawImage(cv, 0, 0, tmp.width, tmp.height);
+				}
+				return tmp.toDataURL(type, quality);
+			},
 			destroy() {
 				for (const i of instances) i.destroy();
 				container.remove();
