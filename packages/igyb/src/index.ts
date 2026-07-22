@@ -24,6 +24,7 @@ export { flowField, type FlowFieldOptions } from './patterns/flow-field';
 export {
 	type Glyph,
 	type GlyphDraw,
+	type GlyphEnv,
 	glyphTile,
 	type GlyphTileOptions
 } from './patterns/glyph-tile';

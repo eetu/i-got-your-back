@@ -1,12 +1,26 @@
 import { defineCanvas2D } from '../../runtime/define';
 import type { BackgroundFactory } from '../../types';
 
+/** Per-cell drawing context passed to a {@link GlyphDraw}. */
+export type GlyphEnv = {
+	/** Accumulated, speed-scaled animation time in seconds. */
+	time: number;
+	/** Pointer proximity for this cell: 0 (far, or not interactive) … 1 (at the pointer). */
+	highlight: number;
+};
+
 /**
  * Draws one glyph, centred at the current canvas origin, within a `size`×`size` box.
- * `fillStyle`/`strokeStyle` are pre-set to the cell's themed colour. `index` is a
- * stable per-cell number — use it to vary what you draw (e.g. a die face).
+ * `fillStyle`/`strokeStyle` are pre-set to the cell's themed colour. `index` is a stable
+ * per-cell number (vary what you draw, e.g. a die face); `env` carries the animation
+ * `time` and a per-cell pointer `highlight` (0…1) for reactive glyphs.
  */
-export type GlyphDraw = (ctx: CanvasRenderingContext2D, size: number, index: number) => void;
+export type GlyphDraw = (
+	ctx: CanvasRenderingContext2D,
+	size: number,
+	index: number,
+	env: GlyphEnv
+) => void;
 
 /** A single glyph: either text (rendered centred) or a {@link GlyphDraw} callback. */
 export type Glyph = string | GlyphDraw;
@@ -75,6 +89,11 @@ export const glyphTile: BackgroundFactory<GlyphTileOptions> = defineCanvas2D<Gly
 				const cx = col * box + box / 2 + (brick && row % 2 ? box / 2 : 0);
 				const cy = row * box + box / 2;
 
+				const highlight =
+					options.interactive && pointer.active
+						? Math.max(0, 1 - Math.hypot(cx - px, cy - py) / reach)
+						: 0;
+
 				let scale = 1;
 				let alpha = 1;
 				if (animating) {
@@ -82,11 +101,8 @@ export const glyphTile: BackgroundFactory<GlyphTileOptions> = defineCanvas2D<Gly
 					scale = 0.9 + 0.12 * w;
 					alpha = 0.72 + 0.28 * w;
 				}
-				if (options.interactive && pointer.active) {
-					const k = Math.max(0, 1 - Math.hypot(cx - px, cy - py) / reach);
-					scale += k * 0.28;
-					alpha = Math.min(1, alpha + k * 0.4);
-				}
+				scale += highlight * 0.28;
+				alpha = Math.min(1, alpha + highlight * 0.4);
 				const rot = jitter ? (h / 0xffffffff - 0.5) * 2 * jitter : 0;
 
 				ctx.save();
@@ -101,7 +117,7 @@ export const glyphTile: BackgroundFactory<GlyphTileOptions> = defineCanvas2D<Gly
 					ctx.font = font;
 					ctx.fillText(g, 0, 0);
 				} else {
-					g(ctx, box, h);
+					g(ctx, box, h, { time, highlight });
 				}
 				ctx.restore();
 			}
