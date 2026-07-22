@@ -49,6 +49,34 @@ export const halo: Palette = {
 	accents: ['#ff7a1a', '#e8630a', '#c25010', '#ffab6b']
 };
 
+/** Dusk warmth — coral, amber and rose over deep plum. */
+export const sunset: Palette = {
+	bg: '#1a0e1f',
+	fg: '#ffe8d6',
+	accents: ['#ff6b6b', '#ff9e64', '#ffd166', '#f78fb3']
+};
+
+/** Deep-sea blues and cyans over near-black teal. */
+export const ocean: Palette = {
+	bg: '#04141c',
+	fg: '#dff6ff',
+	accents: ['#00b4d8', '#48cae4', '#0077b6', '#90e0ef']
+};
+
+/** Electric magenta and cyan over ink — high-contrast neo-noir. */
+export const cyberpunk: Palette = {
+	bg: '#0a0014',
+	fg: '#f2e6ff',
+	accents: ['#ff2a6d', '#05d9e8', '#d300c5', '#00ff9f']
+};
+
+/** Mossy greens over forest-floor dark. */
+export const forest: Palette = {
+	bg: '#0a140d',
+	fg: '#e7f3e4',
+	accents: ['#52b788', '#95d5b2', '#2d6a4f', '#b7e4c7']
+};
+
 /** All built-in themes, keyed by name. */
 export const palettes: Record<ThemeName, Palette> = {
 	ink,
@@ -57,5 +85,9 @@ export const palettes: Record<ThemeName, Palette> = {
 	terminal,
 	mono,
 	paper,
-	halo
+	halo,
+	sunset,
+	ocean,
+	cyberpunk,
+	forest
 };

@@ -19,7 +19,20 @@ export { darken, lighten, mix, toRgb, toRgbString } from './runtime/color';
 
 // Themes
 export { type CSSVarMap, paletteFromCSS, type ResolvedPalette } from './runtime/theme';
-export { halo, ink, mono, neon, palettes, paper, pastel, terminal } from './themes/palettes';
+export {
+	cyberpunk,
+	forest,
+	halo,
+	ink,
+	mono,
+	neon,
+	ocean,
+	palettes,
+	paper,
+	pastel,
+	sunset,
+	terminal
+} from './themes/palettes';
 
 // Patterns (each is independently tree-shakeable)
 export { aurora, type AuroraOptions } from './patterns/aurora';
@@ -39,6 +52,7 @@ export { matrixRain, type MatrixRainOptions } from './patterns/matrix-rain';
 export { metaballs, type MetaballsOptions } from './patterns/metaballs';
 export { particles, type ParticlesOptions } from './patterns/particles';
 export { plasma, type PlasmaOptions } from './patterns/plasma';
+export { plasmaBall, type PlasmaBallOptions } from './patterns/plasma-ball';
 export { starfield, type StarfieldOptions } from './patterns/starfield';
 export { truchet, type TruchetOptions } from './patterns/truchet';
 export { voronoi, type VoronoiOptions } from './patterns/voronoi';

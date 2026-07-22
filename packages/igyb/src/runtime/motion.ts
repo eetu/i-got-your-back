@@ -6,3 +6,8 @@ function matches(query: string): boolean {
 export function prefersReducedMotion(): boolean {
 	return matches('(prefers-reduced-motion: reduce)');
 }
+
+/** Whether the primary pointer is fine (mouse/trackpad) rather than coarse (touch). */
+export function hasFinePointer(): boolean {
+	return matches('(pointer: fine)');
+}

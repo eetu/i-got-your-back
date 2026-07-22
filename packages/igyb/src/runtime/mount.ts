@@ -1,6 +1,6 @@
 import type { Background, BaseOptions, ThemeInput } from '../types';
 import { createLoop } from './loop';
-import { prefersReducedMotion } from './motion';
+import { hasFinePointer, prefersReducedMotion } from './motion';
 import { createPointer, type Pointer } from './pointer';
 import { createSurface, type Surface } from './surface';
 import { type ResolvedPalette, resolveTheme } from './theme';
@@ -37,7 +37,9 @@ const BASE_DEFAULTS: Required<Omit<BaseOptions, 'dpr'>> & { theme: ThemeInput } 
 	speed: 1,
 	interactive: false,
 	pointerSource: 'element',
-	reducedMotion: 'respect'
+	pointerSmoothing: 0,
+	reducedMotion: 'respect',
+	autoPause: true
 };
 
 /** Resolve a `theme` option, unwrapping a thunk (used for CSS-var palettes). */
@@ -66,6 +68,7 @@ function mount<O extends object>(
 	}
 
 	const pointerCtl = createPointer(surface.canvas, opts.pointerSource);
+	pointerCtl.setSmoothing(opts.pointerSmoothing ?? 0);
 	let pointerAttached = false;
 
 	const env: PatternEnv<O> = {
@@ -81,17 +84,25 @@ function mount<O extends object>(
 	};
 
 	const loop = createLoop((dt) => {
+		pointerCtl.step(dt);
 		env.dt = dt * (env.options.speed ?? 1);
 		env.time += env.dt;
 		spec.frame(env);
 	});
 
 	let started = false;
+	let pageVisible = true;
+	let onScreen = true;
 
 	function motionAllowsAnimation(): boolean {
 		if (env.options.animate === false) return false;
 		if (env.options.reducedMotion !== 'off' && prefersReducedMotion()) return false;
 		return true;
+	}
+
+	/** Whether auto-pause currently suspends rendering (tab hidden or host offscreen). */
+	function isPaused(): boolean {
+		return env.options.autoPause !== false && (!pageVisible || !onScreen);
 	}
 
 	function renderOnce(): void {
@@ -104,14 +115,32 @@ function mount<O extends object>(
 		spec.setup?.(env);
 	}
 
+	function pointerWanted(): boolean {
+		const i = env.options.interactive;
+		if (i === 'fine') return hasFinePointer();
+		return i === true;
+	}
+
 	function syncPointer(): void {
-		const want = env.options.interactive === true;
+		const want = pointerWanted();
 		if (want && !pointerAttached) {
 			pointerCtl.attach();
 			pointerAttached = true;
 		} else if (!want && pointerAttached) {
 			pointerCtl.detach();
 			pointerAttached = false;
+		}
+	}
+
+	/** Reconcile the loop with the current started / motion / visibility state. */
+	function sync(): void {
+		if (started && motionAllowsAnimation() && !isPaused()) {
+			loop.start();
+		} else {
+			loop.stop();
+			// Keep a static frame current when stopped but on-screen (reduced motion,
+			// animate:false). No point painting while hidden or scrolled away.
+			if (started && !isPaused()) renderOnce();
 		}
 	}
 
@@ -122,17 +151,30 @@ function mount<O extends object>(
 
 	surfaceCtl.observe(() => {
 		reconfigure();
-		if (!loop.running) renderOnce();
+		if (!loop.running && !isPaused()) renderOnce();
 	});
+
+	// Auto-pause: suspend the loop while the tab is hidden or the host is offscreen.
+	const onVisibility = (): void => {
+		pageVisible = document.visibilityState !== 'hidden';
+		sync();
+	};
+	let io: IntersectionObserver | undefined;
+	if (opts.autoPause !== false) {
+		pageVisible = document.visibilityState !== 'hidden';
+		document.addEventListener('visibilitychange', onVisibility);
+		if (typeof IntersectionObserver !== 'undefined') {
+			io = new IntersectionObserver((entries) => {
+				onScreen = entries[entries.length - 1].isIntersecting;
+				sync();
+			});
+			io.observe(target);
+		}
+	}
 
 	function start(): void {
 		started = true;
-		if (motionAllowsAnimation()) {
-			loop.start();
-		} else {
-			loop.stop();
-			renderOnce();
-		}
+		sync();
 	}
 
 	function stop(): void {
@@ -144,28 +186,31 @@ function mount<O extends object>(
 		const themeChanged = 'theme' in next;
 		Object.assign(env.options as object, next);
 		if (themeChanged) env.palette = resolveThemeOption(env.options.theme);
+		if ('pointerSmoothing' in next) pointerCtl.setSmoothing(env.options.pointerSmoothing ?? 0);
 		if ('interactive' in next) syncPointer();
 		if ('dpr' in next) surfaceCtl.measure();
 		reconfigure();
-		if (started) start();
+		if (started) sync();
 		else renderOnce();
 	}
 
 	function resize(): void {
 		surfaceCtl.measure();
 		reconfigure();
-		if (!loop.running) renderOnce();
+		if (!loop.running && !isPaused()) renderOnce();
 	}
 
 	function refresh(): void {
 		env.palette = resolveThemeOption(env.options.theme);
 		reconfigure();
-		if (!loop.running) renderOnce();
+		if (!loop.running && !isPaused()) renderOnce();
 	}
 
 	function destroy(): void {
 		loop.stop();
 		pointerCtl.detach();
+		document.removeEventListener('visibilitychange', onVisibility);
+		io?.disconnect();
 		surfaceCtl.destroy();
 		if (gl) gl.getExtension('WEBGL_lose_context')?.loseContext();
 	}

@@ -9,3 +9,7 @@ build/
 .yarn/*
 !.yarn/releases
 .pnp.*
+
+# vitest browser failure artifacts
+.vitest-attachments/
+__screenshots__/

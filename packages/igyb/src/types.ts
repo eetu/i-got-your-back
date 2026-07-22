@@ -9,7 +9,18 @@ export type Palette = {
 };
 
 /** Names of the built-in themes. */
-export type ThemeName = 'ink' | 'neon' | 'pastel' | 'terminal' | 'mono' | 'paper' | 'halo';
+export type ThemeName =
+	| 'ink'
+	| 'neon'
+	| 'pastel'
+	| 'terminal'
+	| 'mono'
+	| 'paper'
+	| 'halo'
+	| 'sunset'
+	| 'ocean'
+	| 'cyberpunk'
+	| 'forest';
 
 /** Either a built-in theme name or a raw palette object. */
 export type ThemeInput = ThemeName | Palette;
@@ -26,16 +37,20 @@ export type BaseOptions = {
 	animate?: boolean;
 	/** Time multiplier for animation. Default `1`. */
 	speed?: number;
-	/** React to pointer input. Default `false`. */
-	interactive?: boolean;
+	/** React to pointer input. `'fine'` enables it only for fine pointers (mouse/trackpad), skipping touch. Default `false`. */
+	interactive?: boolean | 'fine';
 	/**
 	 * Where interactive patterns read the pointer from. `'window'` tracks it globally —
 	 * use it when the canvas is behind `pointer-events: none` (a full-page background).
 	 * Default `'element'`.
 	 */
 	pointerSource?: 'element' | 'window';
+	/** Ease the pointer toward its target for smoother reactive motion; `0` = instant, ~`0.2`–`0.5` = silky. Default `0`. */
+	pointerSmoothing?: number;
 	/** How to treat `prefers-reduced-motion`. `'respect'` freezes to a static frame. Default `'respect'`. */
 	reducedMotion?: 'respect' | 'off';
+	/** Pause the render loop while the tab is hidden or the host is scrolled offscreen. Default `true`. */
+	autoPause?: boolean;
 	/** Device-pixel-ratio override. Defaults to `min(devicePixelRatio, 2)`. */
 	dpr?: number;
 };
