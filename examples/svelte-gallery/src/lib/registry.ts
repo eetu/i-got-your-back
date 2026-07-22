@@ -13,6 +13,7 @@ import {
 	particles,
 	plasma,
 	plasmaBall,
+	ripple,
 	starfield,
 	type ThemeName,
 	truchet,
@@ -117,6 +118,18 @@ export const patterns: PatternEntry[] = [
 			{ key: 'spacing', label: 'Spacing', kind: 'range', min: 60, max: 200, step: 5 },
 			{ key: 'linkDistance', label: 'Link', kind: 'range', min: 60, max: 220, step: 5 },
 			{ key: 'pointerMode', label: 'Pointer', kind: 'select', choices: ['attract', 'repel'] }
+		]
+	},
+	{
+		id: 'ripple',
+		name: 'Ripple',
+		category: 'Generative',
+		renderer: 'Canvas2D',
+		factory: ripple,
+		defaults: { speed: 150, life: 2.2 },
+		params: [
+			{ key: 'speed', label: 'Speed', kind: 'range', min: 60, max: 320, step: 10 },
+			{ key: 'life', label: 'Life', kind: 'range', min: 1, max: 4, step: 0.2 }
 		]
 	},
 	{
