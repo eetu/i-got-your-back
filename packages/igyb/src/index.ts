@@ -57,7 +57,6 @@ export { matrixRain, type MatrixRainOptions } from './patterns/matrix-rain';
 export { metaballs, type MetaballsOptions } from './patterns/metaballs';
 export { particles, type ParticlesOptions } from './patterns/particles';
 export { plasma, type PlasmaOptions } from './patterns/plasma';
-export { plasmaBall, type PlasmaBallOptions } from './patterns/plasma-ball';
 export { ripple, type RippleOptions } from './patterns/ripple';
 export { scanlines, type ScanlinesOptions } from './patterns/scanlines';
 export { spotlight, type SpotlightOptions } from './patterns/spotlight';

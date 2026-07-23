@@ -12,7 +12,6 @@ import {
 	metaballs,
 	particles,
 	plasma,
-	plasmaBall,
 	ripple,
 	starfield,
 	type ThemeName,
@@ -58,18 +57,6 @@ export const patterns: PatternEntry[] = [
 		factory: plasma,
 		defaults: { scale: 3.5 },
 		params: [{ key: 'scale', label: 'Scale', kind: 'range', min: 1.5, max: 7, step: 0.5 }]
-	},
-	{
-		id: 'plasmaBall',
-		name: 'Plasma Ball',
-		category: 'Generative',
-		renderer: 'Canvas2D',
-		factory: plasmaBall,
-		defaults: { bolts: 6, coreRadius: 0.12, jitter: 14 },
-		params: [
-			{ key: 'bolts', label: 'Bolts', kind: 'range', min: 3, max: 12, step: 1 },
-			{ key: 'jitter', label: 'Jitter', kind: 'range', min: 4, max: 30, step: 1 }
-		]
 	},
 	{
 		id: 'aurora',
@@ -126,9 +113,9 @@ export const patterns: PatternEntry[] = [
 		category: 'Generative',
 		renderer: 'Canvas2D',
 		factory: ripple,
-		defaults: { speed: 150, life: 2.2 },
+		defaults: { expand: 160, life: 2.4 },
 		params: [
-			{ key: 'speed', label: 'Speed', kind: 'range', min: 60, max: 320, step: 10 },
+			{ key: 'expand', label: 'Speed', kind: 'range', min: 60, max: 320, step: 10 },
 			{ key: 'life', label: 'Life', kind: 'range', min: 1, max: 4, step: 0.2 }
 		]
 	},
