@@ -80,24 +80,61 @@ export function Background({
 
 ## Patterns
 
-| Pattern     | Import (`@anarkisti/igyb/core`) | Renderer | Category   |
-| ----------- | ------------------------------- | -------- | ---------- |
-| Flow field  | `flowField`                     | WebGL    | Generative |
-| Plasma      | `plasma`                        | WebGL    | Generative |
-| Aurora      | `aurora`                        | WebGL    | Generative |
-| Particles   | `particles`                     | Canvas2D | Generative |
-| Matrix rain | `matrixRain`                    | Canvas2D | Generative |
-| Starfield   | `starfield`                     | Canvas2D | Generative |
-| Truchet     | `truchet`                       | Canvas2D | Geometric  |
-| Hex         | `hex`                           | Canvas2D | Geometric  |
-| Isometric   | `iso`                           | Canvas2D | Geometric  |
-| Dot grid    | `dotGrid`                       | Canvas2D | Geometric  |
+| Pattern       | Import (`@anarkisti/igyb/core`) | Renderer | Category   |
+| ------------- | ------------------------------- | -------- | ---------- |
+| Flow field    | `flowField`                     | WebGL    | Generative |
+| Plasma        | `plasma`                        | WebGL    | Generative |
+| Gradient mesh | `gradientMesh`                  | WebGL    | Generative |
+| Aurora        | `aurora`                        | WebGL    | Generative |
+| Metaballs     | `metaballs`                     | WebGL    | Generative |
+| Voronoi       | `voronoi`                       | WebGL    | Generative |
+| Particles     | `particles`                     | Canvas2D | Generative |
+| Ripple        | `ripple`                        | Canvas2D | Generative |
+| Matrix rain   | `matrixRain`                    | Canvas2D | Generative |
+| Starfield     | `starfield`                     | Canvas2D | Generative |
+| Truchet       | `truchet`                       | Canvas2D | Geometric  |
+| Hex           | `hex`                           | Canvas2D | Geometric  |
+| Isometric     | `iso`                           | Canvas2D | Geometric  |
+| Dot grid      | `dotGrid`                       | Canvas2D | Geometric  |
+| Wave lines    | `waveLines`                     | Canvas2D | Geometric  |
+| Low poly      | `lowPoly`                       | Canvas2D | Geometric  |
+| Glyph tile    | `glyphTile`                     | Canvas2D | Geometric  |
+
+Overlays for layering: `grain`, `vignette`, `scanlines`, `spotlight`.
 
 Deep imports (`@anarkisti/igyb/patterns/flow-field`) keep bundles minimal even without
-tree-shaking. Every pattern also takes `theme`, `animate`, `speed`, `interactive`,
-`pointerSource`, `reducedMotion` and `dpr`. Themes: `ink` (default), `neon`, `pastel`,
-`terminal`, `mono`, `paper`, `halo`, or a custom `Palette`. See the repo root README for the
-full option table.
+tree-shaking. Every pattern also takes `theme`, `animate`, `speed`, `interactive`
+(`true` | `'fine'`), `pointerSource`, `pointerSmoothing`, `reducedMotion`, `autoPause` and
+`dpr`. Interactive patterns track multitouch (`pointer.points`). The loop auto-pauses while
+the tab is hidden or the host scrolls offscreen. Themes: `ink` (default), `neon`, `pastel`,
+`terminal`, `mono`, `paper`, `halo`, `sunset`, `ocean`, `cyberpunk`, `forest`, or a custom
+`Palette`.
+
+## Composing layers
+
+Stack patterns into one background with per-layer opacity and blend — WebGL and Canvas2D mix
+freely, since each layer keeps its own canvas:
+
+```ts
+import { layers, aurora, particles, grain, vignette } from '@anarkisti/igyb/core';
+
+const bg = layers(
+	[
+		{ pattern: aurora },
+		{ pattern: particles, blend: 'screen', opacity: 0.6 },
+		{ pattern: grain, blend: 'overlay', opacity: 0.5 },
+		{ pattern: vignette, options: { animate: false } }
+	],
+	{ theme: 'sunset' } // shared across every layer
+)(document.querySelector('#hero')!);
+bg.start();
+
+const poster = bg.capture(); // data URL — a static first-frame for SSR/LCP
+```
+
+`bg.capture()` works on any background (single or layered). For a gallery or a randomize
+button, `@anarkisti/igyb/registry` lists every pattern with metadata; `@anarkisti/igyb/element`
+ships an `<igyb-background>` custom element.
 
 ## Theming from CSS variables
 
