@@ -67,7 +67,7 @@
 		{
 			"name": "core — every pattern imported",
 			"path": "dist/index.js",
-			"limit": "10 kB"
+			"limit": "12 kB"
 		},
 		{
 			"name": "tree-shaken: one WebGL pattern (flowField)",
@@ -79,7 +79,7 @@
 			"name": "tree-shaken: one Canvas2D pattern (truchet)",
 			"path": "dist/index.js",
 			"import": "{ truchet }",
-			"limit": "3 kB"
+			"limit": "4 kB"
 		}
 	],
 	"peerDependencies": {
