@@ -31,6 +31,10 @@
 			"types": "./dist/registry.d.ts",
 			"import": "./dist/registry.js"
 		},
+		"./element": {
+			"types": "./dist/web-component.d.ts",
+			"import": "./dist/web-component.js"
+		},
 		"./patterns/*": {
 			"types": "./dist/patterns/*/index.d.ts",
 			"import": "./dist/patterns/*/index.js"

@@ -33,6 +33,51 @@ bg.start();
 </div>
 ```
 
+## Web component (any framework)
+
+`<igyb-background>` resolves a pattern by name from the registry — drop it into plain HTML,
+React, Vue, anything:
+
+```ts
+import { register } from '@anarkisti/igyb/element';
+register(); // defines <igyb-background> once
+```
+
+```html
+<igyb-background pattern="gradientMesh" theme="sunset" interactive
+	style="display:block; inline-size:100%; block-size:100vh"></igyb-background>
+```
+
+## React
+
+Use `<igyb-background>` above, or this ~20-line wrapper that takes a tree-shakeable factory:
+
+```tsx
+import { useEffect, useRef } from 'react';
+import type { AnyBackgroundFactory, BaseOptions } from '@anarkisti/igyb/core';
+
+export function Background({
+	pattern,
+	options,
+	paused
+}: {
+	pattern: AnyBackgroundFactory;
+	options?: BaseOptions & Record<string, unknown>;
+	paused?: boolean;
+}) {
+	const host = useRef<HTMLDivElement>(null);
+	const bg = useRef<ReturnType<AnyBackgroundFactory>>();
+	useEffect(() => {
+		bg.current = pattern(host.current!, options);
+		if (!paused) bg.current.start();
+		return () => bg.current?.destroy();
+	}, [pattern]); // eslint-disable-line react-hooks/exhaustive-deps
+	useEffect(() => bg.current?.update(options ?? {}), [options]);
+	useEffect(() => (paused ? bg.current?.stop() : bg.current?.start()), [paused]);
+	return <div ref={host} style={{ position: 'relative', width: '100%', height: '100%' }} />;
+}
+```
+
 ## Patterns
 
 | Pattern     | Import (`@anarkisti/igyb/core`) | Renderer | Category   |

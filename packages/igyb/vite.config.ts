@@ -24,7 +24,8 @@ export default defineConfig({
 			// `index`, which stays lean/tree-shakeable). preserveModules shares the rest.
 			entry: {
 				index: resolve(import.meta.dirname, 'src/index.ts'),
-				registry: resolve(import.meta.dirname, 'src/registry.ts')
+				registry: resolve(import.meta.dirname, 'src/registry.ts'),
+				'web-component': resolve(import.meta.dirname, 'src/web-component.ts')
 			},
 			formats: ['es']
 		},
