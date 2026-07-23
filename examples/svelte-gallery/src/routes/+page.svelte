@@ -96,7 +96,7 @@
 		<div class="brand">
 			<span class="glyph" aria-hidden="true"></span>
 			<div class="brand-text">
-				<h1>I Got Your Back</h1>
+				<h1>i got your back<span class="accent">.</span></h1>
 				<p>Tree-shakeable repeating &amp; generative backgrounds</p>
 			</div>
 		</div>
@@ -297,16 +297,18 @@
 		width: 26px;
 		height: 26px;
 		border-radius: 7px;
-		background: linear-gradient(135deg, var(--halo-accent), #ffb37a);
-		box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--halo-accent) 40%, transparent);
+		background: var(--halo-accent);
 	}
 	.brand-text h1 {
 		margin: 0;
-		font-family: var(--halo-font-heading);
+		font-family: var(--halo-font-body);
 		font-weight: 600;
 		font-size: 15px;
-		letter-spacing: -0.01em;
+		letter-spacing: -0.04em;
 		color: var(--halo-text-main);
+	}
+	.brand-text h1 .accent {
+		color: var(--halo-accent);
 	}
 	.brand-text p {
 		margin: 0;
