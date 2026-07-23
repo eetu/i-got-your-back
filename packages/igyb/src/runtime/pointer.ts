@@ -68,7 +68,10 @@ export function createPointer(
 
 	function norm(e: PointerEvent): [number, number] {
 		const r = canvas.getBoundingClientRect();
-		return [(e.clientX - r.left) / Math.max(1, r.width), (e.clientY - r.top) / Math.max(1, r.height)];
+		return [
+			(e.clientX - r.left) / Math.max(1, r.width),
+			(e.clientY - r.top) / Math.max(1, r.height)
+		];
 	}
 
 	function track(e: PointerEvent): void {

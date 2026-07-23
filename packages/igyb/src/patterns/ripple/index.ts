@@ -55,7 +55,12 @@ export const ripple: BackgroundFactory<RippleOptions> = defineCanvas2D<RippleOpt
 		st.idle -= dt;
 		if (st.idle <= 0) {
 			st.idle = 0.28 + Math.random() * 0.5;
-			st.drops.push({ x: Math.random() * w, y: Math.random() * h, age: 0, ci: (Math.random() * 4) | 0 });
+			st.drops.push({
+				x: Math.random() * w,
+				y: Math.random() * h,
+				age: 0,
+				ci: (Math.random() * 4) | 0
+			});
 		}
 		if (st.drops.length > MAX_DROPS) st.drops.splice(0, st.drops.length - MAX_DROPS);
 

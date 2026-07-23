@@ -10,13 +10,10 @@ test('layers stacks patterns on separate canvases and tears down cleanly', () =>
 	host.style.height = '160px';
 	document.body.appendChild(host);
 
-	const bg = layers(
-		[
-			{ pattern: truchet },
-			{ pattern: grain, blend: 'overlay', opacity: 0.6 }
-		],
-		{ theme: 'neon', animate: false }
-	)(host);
+	const bg = layers([{ pattern: truchet }, { pattern: grain, blend: 'overlay', opacity: 0.6 }], {
+		theme: 'neon',
+		animate: false
+	})(host);
 	bg.start();
 
 	// One canvas per layer, stacked in the host.

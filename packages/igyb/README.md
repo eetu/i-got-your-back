@@ -44,8 +44,12 @@ register(); // defines <igyb-background> once
 ```
 
 ```html
-<igyb-background pattern="gradientMesh" theme="sunset" interactive
-	style="display:block; inline-size:100%; block-size:100vh"></igyb-background>
+<igyb-background
+	pattern="gradientMesh"
+	theme="sunset"
+	interactive
+	style="display:block; inline-size:100%; block-size:100vh"
+></igyb-background>
 ```
 
 ## React

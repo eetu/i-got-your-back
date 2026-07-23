@@ -27,7 +27,12 @@ test('tracks multiple simultaneous pointers (multitouch)', () => {
 
 	canvas.dispatchEvent(new PointerEvent('pointerdown', { pointerId: 1, clientX: 10, clientY: 10 }));
 	canvas.dispatchEvent(
-		new PointerEvent('pointerdown', { pointerId: 2, clientX: 40, clientY: 40, pointerType: 'touch' })
+		new PointerEvent('pointerdown', {
+			pointerId: 2,
+			clientX: 40,
+			clientY: 40,
+			pointerType: 'touch'
+		})
 	);
 	expect(count()).toBe(2);
 

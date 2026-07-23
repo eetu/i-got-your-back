@@ -15,7 +15,12 @@ test('themeTransition crossfades the palette then settles on the new theme', asy
 			seen.push(env.palette.bg);
 		}
 	});
-	const bg = probe(host, { theme: 'ink', themeTransition: 0.25, reducedMotion: 'off', autoPause: false });
+	const bg = probe(host, {
+		theme: 'ink',
+		themeTransition: 0.25,
+		reducedMotion: 'off',
+		autoPause: false
+	});
 	bg.start();
 
 	bg.update({ theme: 'paper' });
