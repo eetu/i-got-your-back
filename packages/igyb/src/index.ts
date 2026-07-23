@@ -13,6 +13,7 @@ export type {
 export type { Canvas2DEnv, WebGLEnv } from './runtime/define';
 export { defineCanvas2D, defineWebGL } from './runtime/define';
 export type { PatternEnv } from './runtime/mount';
+export type { Scroll } from './runtime/scroll';
 
 // Compositor — stack patterns into one background
 export { type Layer, layers } from './runtime/layers';

@@ -47,6 +47,8 @@ export type BaseOptions = {
 	pointerSource?: 'element' | 'window';
 	/** Ease the pointer toward its target for smoother reactive motion; `0` = instant, ~`0.2`–`0.5` = silky. Default `0`. */
 	pointerSmoothing?: number;
+	/** Seconds to crossfade the palette when the theme changes (via `update`/`refresh`). `0` snaps. Default `0`. */
+	themeTransition?: number;
 	/** How to treat `prefers-reduced-motion`. `'respect'` freezes to a static frame. Default `'respect'`. */
 	reducedMotion?: 'respect' | 'off';
 	/** Pause the render loop while the tab is hidden or the host is scrolled offscreen. Default `true`. */

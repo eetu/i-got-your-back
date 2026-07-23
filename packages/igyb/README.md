@@ -104,9 +104,11 @@ Overlays for layering: `grain`, `vignette`, `scanlines`, `spotlight`.
 
 Deep imports (`@anarkisti/igyb/patterns/flow-field`) keep bundles minimal even without
 tree-shaking. Every pattern also takes `theme`, `animate`, `speed`, `interactive`
-(`true` | `'fine'`), `pointerSource`, `pointerSmoothing`, `reducedMotion`, `autoPause` and
-`dpr`. Interactive patterns track multitouch (`pointer.points`). The loop auto-pauses while
-the tab is hidden or the host scrolls offscreen. Themes: `ink` (default), `neon`, `pastel`,
+(`true` | `'fine'`), `pointerSource`, `pointerSmoothing`, `themeTransition`, `reducedMotion`,
+`autoPause` and `dpr`. Interactive patterns track multitouch (`pointer.points`); the loop
+auto-pauses while the tab is hidden or the host scrolls offscreen. Set `themeTransition`
+(seconds) to crossfade palettes on a theme change, and pattern authors can read `env.scroll`
+(window scroll progress) for scroll-linked effects. Themes: `ink` (default), `neon`, `pastel`,
 `terminal`, `mono`, `paper`, `halo`, `sunset`, `ocean`, `cyberpunk`, `forest`, or a custom
 `Palette`.
 

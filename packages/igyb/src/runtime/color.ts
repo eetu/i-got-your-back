@@ -1,11 +1,11 @@
-/** Parse a `#rgb` / `#rrggbb` hex string into normalized `[r, g, b]` (0–1). */
+/**
+ * Parse a `#rgb` / `#rrggbb` hex or `rgb()`/`rgba()` string into normalized `[r, g, b]` (0–1).
+ * Accepts `rgb()` too so WebGL patterns keep working through a theme crossfade (which produces
+ * interpolated `rgb()` colors).
+ */
 export function hexToRgb(hex: string): [number, number, number] {
-	let h = hex.trim().replace('#', '');
-	if (h.length === 3) {
-		h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
-	}
-	const n = Number.parseInt(h, 16);
-	return [((n >> 16) & 255) / 255, ((n >> 8) & 255) / 255, (n & 255) / 255];
+	const [r, g, b] = toRgb(hex);
+	return [r / 255, g / 255, b / 255];
 }
 
 /** Multiply a hex color's brightness by `f` (clamped), returning a `rgb(...)` string. */

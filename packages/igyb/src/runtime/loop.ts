@@ -17,7 +17,9 @@ export function createLoop(onFrame: (dtSeconds: number) => void): Loop {
 		const dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
 		last = now;
 		onFrame(dt);
-		raf = requestAnimationFrame(tick);
+		// Re-check: onFrame may have called stop() (e.g. a theme crossfade finishing on an
+		// otherwise-static pattern), in which case we must not schedule another frame.
+		if (running) raf = requestAnimationFrame(tick);
 	}
 
 	return {

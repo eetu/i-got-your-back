@@ -1,7 +1,9 @@
 import type { Background, BaseOptions, ThemeInput } from '../types';
+import { mix } from './color';
 import { createLoop } from './loop';
 import { hasFinePointer, prefersReducedMotion } from './motion';
 import { createPointer, type Pointer } from './pointer';
+import { createScroll, type Scroll } from './scroll';
 import { createSurface, type Surface } from './surface';
 import { type ResolvedPalette, resolveTheme } from './theme';
 
@@ -18,6 +20,8 @@ export type PatternEnv<O> = {
 	dt: number;
 	palette: ResolvedPalette;
 	readonly pointer: Pointer;
+	/** Window scroll position + progress, for scroll-linked patterns. */
+	readonly scroll: Scroll;
 	options: O & BaseOptions;
 	/** Per-instance scratch space for cached resources (GL programs, grids…). */
 	state: Record<string, unknown>;
@@ -38,6 +42,7 @@ const BASE_DEFAULTS: Required<Omit<BaseOptions, 'dpr'>> & { theme: ThemeInput } 
 	interactive: false,
 	pointerSource: 'element',
 	pointerSmoothing: 0,
+	themeTransition: 0,
 	reducedMotion: 'respect',
 	autoPause: true
 };
@@ -45,6 +50,21 @@ const BASE_DEFAULTS: Required<Omit<BaseOptions, 'dpr'>> & { theme: ThemeInput } 
 /** Resolve a `theme` option, unwrapping a thunk (used for CSS-var palettes). */
 function resolveThemeOption(theme: BaseOptions['theme']): ResolvedPalette {
 	return resolveTheme(typeof theme === 'function' ? theme() : theme);
+}
+
+/** Interpolate two resolved palettes, for a theme crossfade. */
+function lerpPalette(a: ResolvedPalette, b: ResolvedPalette, t: number): ResolvedPalette {
+	const n = Math.max(a.accents.length, b.accents.length);
+	const accents: string[] = [];
+	for (let i = 0; i < n; i++) accents.push(mix(a.accent(i), b.accent(i), t));
+	return {
+		bg: mix(a.bg, b.bg, t),
+		fg: mix(a.fg, b.fg, t),
+		accents,
+		accent(i: number): string {
+			return accents[((i % accents.length) + accents.length) % accents.length];
+		}
+	};
 }
 
 function mount<O extends object>(
@@ -71,6 +91,9 @@ function mount<O extends object>(
 	pointerCtl.setSmoothing(opts.pointerSmoothing ?? 0);
 	let pointerAttached = false;
 
+	const scrollCtl = createScroll();
+	scrollCtl.attach();
+
 	const env: PatternEnv<O> = {
 		surface,
 		ctx,
@@ -79,20 +102,35 @@ function mount<O extends object>(
 		dt: 0,
 		palette: resolveThemeOption(opts.theme),
 		pointer: pointerCtl.pointer,
+		scroll: scrollCtl.scroll,
 		options: opts,
 		state: {}
 	};
 
-	const loop = createLoop((dt) => {
-		pointerCtl.step(dt);
-		env.dt = dt * (env.options.speed ?? 1);
-		env.time += env.dt;
-		spec.frame(env);
-	});
-
 	let started = false;
 	let pageVisible = true;
 	let onScreen = true;
+	// Active theme crossfade, if any (see themeTransition).
+	let transition: { from: ResolvedPalette; to: ResolvedPalette; dur: number; t: number } | null =
+		null;
+
+	const loop = createLoop((dt) => {
+		pointerCtl.step(dt);
+		if (transition) {
+			transition.t += dt / transition.dur;
+			if (transition.t >= 1) {
+				env.palette = transition.to;
+				transition = null;
+			} else {
+				env.palette = lerpPalette(transition.from, transition.to, transition.t);
+			}
+		}
+		env.dt = dt * (env.options.speed ?? 1);
+		env.time += env.dt;
+		spec.frame(env);
+		// A crossfade can drive an otherwise-static pattern; once it ends, let the loop settle.
+		if (!transition && !motionAllowsAnimation()) loop.stop();
+	});
 
 	function motionAllowsAnimation(): boolean {
 		if (env.options.animate === false) return false;
@@ -132,15 +170,28 @@ function mount<O extends object>(
 		}
 	}
 
-	/** Reconcile the loop with the current started / motion / visibility state. */
+	/** Reconcile the loop with the current started / motion / visibility / transition state. */
 	function sync(): void {
-		if (started && motionAllowsAnimation() && !isPaused()) {
+		if (started && !isPaused() && (motionAllowsAnimation() || transition !== null)) {
 			loop.start();
 		} else {
 			loop.stop();
 			// Keep a static frame current when stopped but on-screen (reduced motion,
 			// animate:false). No point painting while hidden or scrolled away.
 			if (started && !isPaused()) renderOnce();
+		}
+	}
+
+	/** Apply the current `theme` option, crossfading from the live palette if `themeTransition` > 0. */
+	function applyTheme(): void {
+		const next = resolveThemeOption(env.options.theme);
+		const dur = env.options.themeTransition ?? 0;
+		if (dur > 0 && started && !isPaused()) {
+			transition = { from: env.palette, to: next, dur, t: 0 };
+			sync(); // ensure the loop runs to drive the fade
+		} else {
+			transition = null;
+			env.palette = next;
 		}
 	}
 
@@ -185,7 +236,7 @@ function mount<O extends object>(
 	function update(next: Partial<O & BaseOptions>): void {
 		const themeChanged = 'theme' in next;
 		Object.assign(env.options as object, next);
-		if (themeChanged) env.palette = resolveThemeOption(env.options.theme);
+		if (themeChanged) applyTheme();
 		if ('pointerSmoothing' in next) pointerCtl.setSmoothing(env.options.pointerSmoothing ?? 0);
 		if ('interactive' in next) syncPointer();
 		if ('dpr' in next) surfaceCtl.measure();
@@ -201,7 +252,7 @@ function mount<O extends object>(
 	}
 
 	function refresh(): void {
-		env.palette = resolveThemeOption(env.options.theme);
+		applyTheme();
 		reconfigure();
 		if (!loop.running && !isPaused()) renderOnce();
 	}
@@ -214,6 +265,7 @@ function mount<O extends object>(
 	function destroy(): void {
 		loop.stop();
 		pointerCtl.detach();
+		scrollCtl.detach();
 		document.removeEventListener('visibilitychange', onVisibility);
 		io?.disconnect();
 		surfaceCtl.destroy();
