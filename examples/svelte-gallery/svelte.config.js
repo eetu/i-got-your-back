@@ -32,6 +32,7 @@ const config = {
 		// build. Published, the app would depend on @anarkisti/igyb proper.
 		alias: {
 			'@anarkisti/igyb/core': '../../packages/igyb/src/index.ts',
+			'@anarkisti/igyb/registry': '../../packages/igyb/src/registry.ts',
 			'@anarkisti/igyb/svelte': '../../packages/igyb/src/svelte/Background.svelte'
 		}
 	}
