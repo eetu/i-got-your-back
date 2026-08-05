@@ -19,7 +19,7 @@
 	"devDependencies": {
 		"@anarkisti/eslint-config": "^1",
 		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.69",
+		"@sveltejs/kit": "^2.70",
 		"@sveltejs/vite-plugin-svelte": "^7",
 		"@types/node": "^26",
 		"eslint": "^10",
