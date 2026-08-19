@@ -680,37 +680,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@size-limit/esbuild@npm:13.0.2":
-  version: 13.0.2
-  resolution: "@size-limit/esbuild@npm:13.0.2"
+"@size-limit/esbuild@npm:13.0.3":
+  version: 13.0.3
+  resolution: "@size-limit/esbuild@npm:13.0.3"
   dependencies:
     esbuild: "npm:^0.28.1"
     nanoid: "npm:^6.0.0"
   peerDependencies:
-    size-limit: 13.0.2
-  checksum: 10/7ba8290d9ff62c5c01eadc06792f9dd18643836dcee60719ad94d2f8c3d1035bfd3c7fa3fa8b417ebbebbf8a4243e0834b3708e1e1da5febabc4252af709e22c
+    size-limit: 13.0.3
+  checksum: 10/f6e031095dbf550250d33325637c695853d7a223181e4f360174738681dc0b04ca1f0a67dd2f202c6f1d458fa8a028d642f7db84f9537575527383d4f77d6f62
   languageName: node
   linkType: hard
 
-"@size-limit/file@npm:13.0.2":
-  version: 13.0.2
-  resolution: "@size-limit/file@npm:13.0.2"
+"@size-limit/file@npm:13.0.3":
+  version: 13.0.3
+  resolution: "@size-limit/file@npm:13.0.3"
   peerDependencies:
-    size-limit: 13.0.2
-  checksum: 10/d43cb95dae70ceb4946d33f31c6f6b37ff33fb2b95a13ce1e895ef31989723b4451950047bd343a6e6f8488a72fab71e8d54bc7ef7243bcfb27e6b5b644ac9cc
+    size-limit: 13.0.3
+  checksum: 10/c94ba067996e71baa0965603e640730a69d5d63d924411b22f752b07ac1deba94054a20a0fcc0e2163d7051d41c40b8c4f8c995f76c3371308cc5b52667811c6
   languageName: node
   linkType: hard
 
 "@size-limit/preset-small-lib@npm:^13":
-  version: 13.0.2
-  resolution: "@size-limit/preset-small-lib@npm:13.0.2"
+  version: 13.0.3
+  resolution: "@size-limit/preset-small-lib@npm:13.0.3"
   dependencies:
-    "@size-limit/esbuild": "npm:13.0.2"
-    "@size-limit/file": "npm:13.0.2"
-    size-limit: "npm:13.0.2"
+    "@size-limit/esbuild": "npm:13.0.3"
+    "@size-limit/file": "npm:13.0.3"
+    size-limit: "npm:13.0.3"
   peerDependencies:
-    size-limit: 13.0.2
-  checksum: 10/f603d47c33863f0610e4a0dc5bab8e54bd2f3077faa69f13f7b2f98392b5bbeb7f5a37167f11f8e0bc888e12f32783037da01e9f26abda8316e27c6f9e669f59
+    size-limit: 13.0.3
+  checksum: 10/0de1526c67a84d2b0211d946c0fb412f4e1337c5b1ec0ffb0de22c2a7e1f61c54da36c0df727ef4282af402ae5e96d8f5b93e2678f04ef85a62eb60a6d551e2e
   languageName: node
   linkType: hard
 
@@ -772,25 +772,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sveltejs/load-config@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@sveltejs/load-config@npm:0.2.1"
-  checksum: 10/c850d7d04fee34c5a2842bf7c0f32baf396be7b91ec457f52d871112bbb04ef4f4154a0717d29da17d4fa94a6cbdfddf8dd453e842e853ae5a7d7dd8050b5792
+"@sveltejs/load-config@npm:^0.2.2":
+  version: 0.2.3
+  resolution: "@sveltejs/load-config@npm:0.2.3"
+  checksum: 10/cafc9bdf01ff68af1dbba16c416f688a855e0090497fb6855925177ae030775a5c0919243ffd6633046bb22f195e3f128a823345929f26acbf10490777caf030
   languageName: node
   linkType: hard
 
 "@sveltejs/vite-plugin-svelte@npm:^7":
-  version: 7.2.0
-  resolution: "@sveltejs/vite-plugin-svelte@npm:7.2.0"
+  version: 7.3.0
+  resolution: "@sveltejs/vite-plugin-svelte@npm:7.3.0"
   dependencies:
     deepmerge: "npm:^4.3.1"
-    magic-string: "npm:^0.30.21"
+    magic-string: "npm:^1.0.0"
     obug: "npm:^2.1.0"
     vitefu: "npm:^1.1.2"
   peerDependencies:
     svelte: ^5.46.4
     vite: ^8.0.0-beta.7 || ^8.0.0
-  checksum: 10/13e73d83f2d49a2a251f2eac5713ec11c7d82b1522ffc06d49af16b58a0e4cd520c99fde363d046c31b1477e447b017227220a24509ebff50a9c02f7a3aaf29d
+  checksum: 10/48e91c777229f4ebf67870940895a1d9cf9c55fd4efc328167983949b6d48e5cfce93fda53e9c777377d81c32272392cc66715d565036a3d1a826f570b6edeab
   languageName: node
   linkType: hard
 
@@ -840,11 +840,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^26":
-  version: 26.1.2
-  resolution: "@types/node@npm:26.1.2"
+  version: 26.2.0
+  resolution: "@types/node@npm:26.2.0"
   dependencies:
     undici-types: "npm:~8.3.0"
-  checksum: 10/2dd6d75b80c006deab4e381acc8cb2e3d634f10141f05fd6cadaabddd80a95f04aef7b00a574bd8fd5e08e940b899c23b91dd09a70b11a34a2762203b5eea25e
+  checksum: 10/3829dd8c82e7d4858f3cc946ec9e5133c9fa39a0a9173874a6392230665121b42dac1b134e5e10ee132a5487293708c77df253cf41a125e9fd838cc3af72d700
   languageName: node
   linkType: hard
 
@@ -1694,8 +1694,8 @@ __metadata:
   linkType: hard
 
 "eslint@npm:^10":
-  version: 10.8.0
-  resolution: "eslint@npm:10.8.0"
+  version: 10.8.1
+  resolution: "eslint@npm:10.8.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.8.0"
     "@eslint-community/regexpp": "npm:^4.12.2"
@@ -1734,7 +1734,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10/6128174fffd198e2d10ac211fabdc7292e3214c62a5aede66d2397a0628cf4f704f85a2efb1d5733584a005a6edcf5ca70436894c8befe4ac9e374609c721687
+  checksum: 10/7174710e740f95bfa97d7501419d717c03cf7760c3eea4a91cd10fb804538bbd8cdc0849b26afa789a56a89ee838b727e4b9329e347376f96b8e524727b90ba3
   languageName: node
   linkType: hard
 
@@ -2291,6 +2291,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"magic-string@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "magic-string@npm:1.1.0"
+  dependencies:
+    "@jridgewell/sourcemap-codec": "npm:^1.5.5"
+  checksum: 10/01e9b5c05c3bfe219cf6ffe0d0f9158b1c72becfe4bfa8e4896122bcbd44665b10cdfbd2d0b9cd850fa0876a756f80c9cd47b4086a946e3022d73ad467490c8c
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^10.2.2, minimatch@npm:^10.2.4":
   version: 10.2.5
   resolution: "minimatch@npm:10.2.5"
@@ -2802,17 +2811,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"size-limit@npm:13.0.2, size-limit@npm:^13":
-  version: 13.0.2
-  resolution: "size-limit@npm:13.0.2"
+"size-limit@npm:13.0.3, size-limit@npm:^13":
+  version: 13.0.3
+  resolution: "size-limit@npm:13.0.3"
   dependencies:
     bytes-iec: "npm:^3.1.1"
     lilconfig: "npm:^3.1.3"
     nanospinner: "npm:^1.2.2"
-    picocolors: "npm:^1.1.1"
   bin:
     size-limit: bin.js
-  checksum: 10/f8b4e82a5d64fd74c86161facabff366c972b4985123185991d213f832bfa3d2f0e963bfb0f998227879ddd2bcc24e13546661761f3dbe6712fcc1295f8abeb3
+  checksum: 10/440de38f1b8bc7724d007defb632ab8518f71c220dd082732dc5a2321deb43a14333697fa2c6b7c066cf81e302c3017f1ebf878b673be722fa8466d9c72c48ee
   languageName: node
   linkType: hard
 
@@ -2845,11 +2853,11 @@ __metadata:
   linkType: hard
 
 "svelte-check@npm:^4.7":
-  version: 4.7.4
-  resolution: "svelte-check@npm:4.7.4"
+  version: 4.7.5
+  resolution: "svelte-check@npm:4.7.5"
   dependencies:
     "@jridgewell/trace-mapping": "npm:^0.3.25"
-    "@sveltejs/load-config": "npm:^0.2.1"
+    "@sveltejs/load-config": "npm:^0.2.2"
     chokidar: "npm:^4.0.1"
     fdir: "npm:^6.2.0"
     picocolors: "npm:^1.0.0"
@@ -2859,7 +2867,7 @@ __metadata:
     typescript: ^5.0.0 || ^6.0.0
   bin:
     svelte-check: bin/svelte-check
-  checksum: 10/741f0a237f5bedf207b9e9e182f42fd2b4c5e9f52260efb5e43c335e732adce9ace8e46427c021f947ef4f4f17edc076085ffc11c6470b427a7b2fb4d6bf6932
+  checksum: 10/8a969c45a857d71e2e02f373a39624c6112c7ddf076b4bf6c6bf59359b41140991627d9e4fd6364a57b0aacf64ce16b2f9f6d4c5d298b7b0ac60c9512060a8e4
   languageName: node
   linkType: hard
 
