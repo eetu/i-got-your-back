@@ -23,7 +23,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7",
 		"@types/node": "^26",
 		"eslint": "^10",
-		"svelte": "^5.56",
+		"svelte": "^5.57",
 		"svelte-check": "^4.7",
 		"typescript": "^6",
 		"vite": "^8.2"
