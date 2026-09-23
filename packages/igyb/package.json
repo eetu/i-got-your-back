@@ -93,7 +93,7 @@
 	"devDependencies": {
 		"@anarkisti/eslint-config": "^1",
 		"@sveltejs/vite-plugin-svelte": "^7",
-		"@vitest/browser": "^4.1",
+		"@vitest/browser": "^5.0",
 		"@vitest/browser-playwright": "^4.1",
 		"eslint": "^10",
 		"playwright": "^1.63",
