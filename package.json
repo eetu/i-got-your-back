@@ -20,7 +20,7 @@
 		"dev": "yarn workspace @anarkisti/igyb-gallery dev"
 	},
 	"devDependencies": {
-		"@size-limit/preset-small-lib": "^13",
+		"@size-limit/preset-small-lib": "^14",
 		"prettier": "^3.9.9",
 		"prettier-plugin-svelte": "^4.0.1",
 		"size-limit": "^13",
