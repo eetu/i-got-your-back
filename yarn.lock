@@ -1308,13 +1308,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bytes-iec@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "bytes-iec@npm:3.1.1"
-  checksum: 10/2f89d1dbb058b1bc8a9284658b6c779ffe16127f93f3647b749723660c989a38ac87bad065cc874d380f05b566c95153348f416e6a08985625812512d01e689f
-  languageName: node
-  linkType: hard
-
 "cacheable@npm:^2.5.0":
   version: 2.5.0
   resolution: "cacheable@npm:2.5.0"
@@ -2028,7 +2021,7 @@ __metadata:
     "@size-limit/preset-small-lib": "npm:^14"
     prettier: "npm:^3.9.9"
     prettier-plugin-svelte: "npm:^4.0.1"
-    size-limit: "npm:^13"
+    size-limit: "npm:^14"
     svelte: "npm:^5.57"
     typescript: "npm:^6.0.2"
   languageName: unknown
@@ -2923,16 +2916,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"size-limit@npm:^13":
-  version: 13.1.1
-  resolution: "size-limit@npm:13.1.1"
+"size-limit@npm:^14":
+  version: 14.1.0
+  resolution: "size-limit@npm:14.1.0"
   dependencies:
-    bytes-iec: "npm:^3.1.1"
     lilconfig: "npm:^3.1.3"
     nanospinner: "npm:^1.2.2"
   bin:
     size-limit: bin.js
-  checksum: 10/bf09e4b58b4c0323f954dd9fd59b5c98bfe2bb0ea3476a662f4c45c9b0f2fb3a9668d776766a2f01d597c65c1f3bd5dce247fd63d8e0ac1ee2077bff34b75ae2
+  checksum: 10/2fd508ff85b1fa4508ef4f4a6dec4105e613709a082bc06cafde385de4cc2088afbbdbde87569d375205ae0cf6ac62ad4c5c3c312c710c6177995f82305e42b6
   languageName: node
   linkType: hard
 
