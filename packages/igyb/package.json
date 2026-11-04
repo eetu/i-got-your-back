@@ -96,12 +96,12 @@
 		"@vitest/browser": "^5.0",
 		"@vitest/browser-playwright": "^4.1",
 		"eslint": "^10",
-		"playwright": "^1.63",
+		"playwright": "^1.64",
 		"svelte": "^5.57",
 		"svelte-check": "^4.7",
 		"typescript": "^6",
 		"vite": "^8.3",
 		"vite-plugin-dts": "^5",
-		"vitest": "^4.1"
+		"vitest": "^5.0"
 	}
 }
